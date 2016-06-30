@@ -1,0 +1,84 @@
+%TODO 等的使用
+%%TODO 内容问题
+%%HACK 粗鄙技巧
+%%CODE 代码改进
+
+%TODO——注意事项
+%CODE：20160629 每行 80 字符限制，中英文、数字之间加空格
+
+\documentclass{book}
+
+%TODO——宏包
+%%页面尺寸
+\usepackage{geometry}
+	\geometry{
+		a4paper, twoside,
+		left = 2.54 cm, right = 2.54 cm, top = 3.18 cm, bottom = 3.18 cm,
+		headheight = 3 cm
+	}
+
+%%设置标题
+\usepackage{titlesec}
+
+%%常规字体选择
+%正文字体：Palatino
+%无衬线字体A：Helvetica
+%无衬线字体B：Source Sans Pro
+%等宽字体：Courier
+%Helvetica: \usefont{T1}{phv}{m}{n}
+%Courier: \usefont{T1}{pcr}{m}{n}
+\usepackage[no-math]{fontspec}
+	\setmainfont[
+		Extension = .otf,
+		BoldFont = texgyrepagella-bold,
+		SlantedFont = texgyrepagella-italic
+	]{texgyrepagella-regular}
+	\setsansfont{Source Sans Pro}
+
+%%AMS 数学支持
+\usepackage{amsmath}
+
+%%调用 Unicode OpenType 数学字体
+\usepackage{unicode-math}
+	\setmathfont[
+		math-style = ISO,
+		bold-style = ISO
+	]{texgyrepagella-math.otf}
+%加粗使用 \symbf{}
+%直立希腊字母：\uppi 等
+
+%%中文文字处理
+\usepackage[UTF8, heading = true]{ctex}
+\usepackage{xeCJK}
+	\setCJKmainfont[
+		BoldFont = 方正书宋_GBK,
+		ItalicFont = 方正楷体_GBK,
+		Mapping = fullwidth-stop
+	]{方正书宋_GBK}
+	\setCJKfamilyfont{楷体}{方正楷体_GBK}
+	\setCJKfamilyfont{黑体}{方正黑体_GBK}
+	\setCJKfamilyfont{仿宋}{方正仿宋_GBK}
+
+%%颜色
+\usepackage[svgnames]{xcolor}
+
+%%图形
+\usepackage{graphicx}
+
+%TODO——标题页
+\title{
+	\vspace{-4 cm} \color{Sienna} \Huge
+	\LaTeX 排版笔记
+}
+\author{
+	\CJKfamily{楷体} \color{DarkRed} \Large
+	曾祥东
+}
+\date{
+	\CJKfamily{楷体} \color{Goldenrod} \Large
+	\today
+}
+
+\begin{document}
+	\maketitle
+\end{document}
