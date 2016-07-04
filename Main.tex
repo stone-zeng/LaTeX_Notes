@@ -21,22 +21,42 @@
 \usepackage{titlesec}
 
 %%常规字体选择
+%
 %正文字体：Palatino
 %无衬线字体A：Helvetica
 %无衬线字体B：Source Sans Pro
 %等宽字体：Courier
+%
+%以下两种方式已弃用：
 %Helvetica: \usefont{T1}{phv}{m}{n}
 %Courier: \usefont{T1}{pcr}{m}{n}
+%
 \usepackage[no-math]{fontspec}
 	\setmainfont[
 		Extension = .otf,
 		BoldFont = texgyrepagella-bold,
-		SlantedFont = texgyrepagella-italic
+		ItalicFont = texgyrepagella-italic.otf,
+		SlantedFont = texgyrepagella-italic.otf
 	]{texgyrepagella-regular}
-	\setsansfont{Source Sans Pro}
+	\setsansfont[
+		Extension = .otf,
+		BoldFont = texgyreheros-bold,
+		ItalicFont = texgyreheros-italic.otf,
+		SlantedFont = texgyreheros-italic
+	]{texgyreheros-regular}
+	\setmonofont[
+		Extension = .otf,
+		BoldFont = texgyrecursor-bold,
+		ItalicFont = texgyrecursor-italic.otf,
+		SlantedFont = texgyrecursor-italic
+	]{texgyrecursor-regular}
+	\newfontfamily{\SourceSans}{Source Sans Pro}
 
 %%AMS 数学支持
 \usepackage{amsmath}
+
+%%Pi 符号
+\usepackage{pifont}
 
 %%调用 Unicode OpenType 数学字体
 \usepackage{unicode-math}
@@ -49,15 +69,35 @@
 
 %%中文文字处理
 \usepackage[UTF8, heading = true]{ctex}
+	\pagestyle{empty}
 \usepackage{xeCJK}
 	\setCJKmainfont[
 		BoldFont = 方正书宋_GBK,
 		ItalicFont = 方正楷体_GBK,
 		Mapping = fullwidth-stop
 	]{方正书宋_GBK}
+%	\setCJKsansfont[
+%		BoldFont = 思源黑体 CN Regular,
+%		ItalicFont = 思源黑体 CN Regular,
+%		Mapping = fullwidth-stop
+%	]{思源黑体 CN Regular}
+	\setCJKmonofont[
+		BoldFont = 方正仿宋_GBK,
+		ItalicFont = 方正楷体_GBK,
+		Mapping = fullwidth-stop
+	]{方正仿宋_GBK}
+	\setCJKfamilyfont{宋体}{方正书宋_GBK}
 	\setCJKfamilyfont{楷体}{方正楷体_GBK}
 	\setCJKfamilyfont{黑体}{方正黑体_GBK}
 	\setCJKfamilyfont{仿宋}{方正仿宋_GBK}
+
+%%脚注增强版
+\usepackage[stable, perpage, bottom]{footmisc}
+	%需要调用 pifont 宏包
+	%衬线加圈阳文数字：\ding{172}~\ding{181} (1~10)
+	%无衬线加圈阳文数字：\ding{192}~\ding{201} (1~10)
+	%TODO：20160705 脚注不用上标
+	\renewcommand{\thefootnote}{\ding{\numexpr191+\value{footnote} } }
 
 %%颜色
 \usepackage[svgnames]{xcolor}
@@ -65,20 +105,107 @@
 %%图形
 \usepackage{graphicx}
 
+%%代码抄录
+%\usepackage{shortvrb}
+%	\MakeShortVerb |
+
+%%大段代码排版
+\usepackage{listings}
+
+%%彩色、加框环境
+\usepackage[listings]{tcolorbox}
+
+%%定理类环境
+%\usepackage[thmmarks, amsmath]{ntheorem}
+%	\theoremstyle{plain} %带编号
+%%	\theoremheaderfont{\myHeavy}
+%	\theorembodyfont{\normalfont}
+%%	\theoremsymbol{}
+%%	\theoremsymbol{\ensuremath{\triangleleft}}
+%		\newtheorem{_myQuestion}{例}[chapter]
+%		\newtheorem{_myAnswer}{答}[chapter]
+
+
+%TODO——环境
+%%问题 Question & Answer (这里的空行用来分段)
+%使用计数器 question，全文统一编号
+\newcounter{question}
+\setcounter{question}{1}
+\renewcommand{\thequestion}{\arabic{question}}
+\newenvironment{myQA}[1]
+	{{\large \noindent {\sffamily \thequestion.}~{\CJKfamily{黑体} #1}}
+		
+	}
+	{
+		
+		\mbox{} \stepcounter{question}
+	}
+%% 代码框
+%FIXME：20160705 不可以使用 tab 键，见 plain.tex 第 18 行
+\newtcblisting{myCode}[1][`]
+	{
+%		colback=yellow!5,
+%		colframe=yellow!50!black,
+		sharp corners,
+		boxrule = 0 cm,
+		left = 0 cm, right = 0.5 cm, top = 0 cm, bottom = 0 cm,
+		capture = hbox, %自动调整边框大小
+		listing only,
+		listing options = {
+			language = tex,
+			basicstyle = \ttfamily,
+			keywordstyle = \normalsize,
+			numbers = left,
+			numberstyle = \itshape \footnotesize \color{gray},
+			escapechar = #1
+		}
+	}
+
+%\lstnewenvironment{myCode}[1][`]
+%	{
+%		\lstset{
+%			language = [LaTeX] TeX,
+%			basicstyle = \ttfamily,
+%			keywordstyle = \normalsize,
+%%			由于 80 字符限制，该选项可略去
+%%			breaklines = true,
+%			tabsize = 4,
+%%			numbers = left,
+%%			numberstyle = \itshape \footnotesize \color{gray},
+%%			numbersep = 10 pt,
+%%			该项无效
+%%			showstringspaces = true,
+%			escapechar = #1
+%		}
+%	}
+%	{}
+
+%TODO——命令
+%宏包名
+\newcommand{\pkg}[1]{\SourceSans #1}
+%参考文献
+\newcommand{\myRef}[1]{\noindent
+	{\sc Reference} \raisebox{-0.25 ex}{\ding{43}}
+	\quad #1}
+
 %TODO——标题页
 \title{
-	\vspace{-4 cm} \color{Sienna} \Huge
-	\LaTeX 排版笔记
+	\vspace{-4 cm} \color{Sienna} \Huge \LaTeX 排版笔记
 }
 \author{
-	\CJKfamily{楷体} \color{DarkRed} \Large
-	曾祥东
+	\CJKfamily{楷体} \color{DarkRed} \Large 曾祥东
 }
 \date{
-	\CJKfamily{楷体} \color{Goldenrod} \Large
-	\today
+	\CJKfamily{楷体} \color{Goldenrod} \Large \today
 }
 
 \begin{document}
 	\maketitle
+	
+	\chapter{文本}
+		\input{Chapters/Chapter1}
+		
+	\chapter{数学与公式}
+	\chapter{字体}
+	\chapter{图形}
 \end{document}
