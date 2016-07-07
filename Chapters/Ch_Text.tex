@@ -1,14 +1,14 @@
 \begin{myQA}{如何优雅地在科技文献中使用句点？}
 	在一般中文文章中，通常使用句号“{\CJKfamily{宋体}。}”。在 Unicode 中，
 	它的代码为 \verb|U+3002|。而在科技文献中，经常使用句点“。”（即全角
-	英文句号），它的 Unicode 代码为 \verb|U+FF0E|。类似符号还有：半角英文句号
+	英文句号），它的 Unicode 代码为 \verb|U+FF0E|。类似符号还有：半角英文句号达到
 	\verb|U+002E|“.”，半角中文句号 \verb|U+FF61|
 	\footnote{本文所用字体并不包含该符号，可以改用微软雅黑等字体来显示。}
 	等。这篇文章可以假装是科技文献，因此用了句点。
 	
 	我们有三种使用句点的方案。
 	
-	\emph{普青方案}：使用 \pkg{xeCJK} 宏包的朋友，在调用字体时使用
+	\emph{普青方案}：使用 \pkg{xeCJK} \index{xeCJK} 宏包的朋友，在调用字体时使用
 	\verb|Mapping = fullwidth-stop| 选项，就可以将正常句号转换成句点。选项
 	\verb|Mapping = full-stop| 的作用恰恰相反。
 	
@@ -24,8 +24,8 @@
 	\myRef{115,116}
 \end{myQA}
 
-\begin{myQA}{这是二}
-	vsDVD字符v的v倍数个纳税人ecb
+\begin{myQA}{各种连字符的区别。}
+	
 \end{myQA}
 
 \begin{myQA}{这是三}
