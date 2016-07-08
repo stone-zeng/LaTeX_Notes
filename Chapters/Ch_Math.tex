@@ -1,6 +1,7 @@
 \begin{myQA}{如何将实部、虚部用 Re 和 Im 表示？}
 	在\LaTeXTeX 中，命令 \verb|\Re| 和 \verb|\Im| 得到的是大写哥特体字母
-	$\Re$ 和 $\Im$。这是高德纳在 \filename{plain.tex} 中定义的。
+	$\Re$ 和 $\Im$。\indexcmd{\backslash Re} \indexcmd{\backslash Im}
+	这是高德纳在 \filename{plain.tex} 中定义的。
 	
 	用下面的命令可以将它们重定义为更常用的格式 $\operatorname{Re}$
 	和 $\operatorname{Im}$：
@@ -9,8 +10,10 @@
 \renewcommand{\Im}{\operatorname{Im}}
 \end{myCode}
 	
-	使用 \pkg{physics} 中的 \verb|\Re| 和 \verb|\Im| 也可以达到同样的目的。
+	使用 \pkg{physics} \indexpkg{physics} 中的 \verb|\Re| 和 \verb|\Im| 也
+	可以达到同样的目的。
 	这个宏包还把原来的哥特体保存在了命令 \verb|\real| 和 \verb|\imaginary| 中。
+	\indexcmd{\backslash real} \indexcmd{\backslash imaginary}
 	
 	\myRef{115,116}
 \end{myQA}

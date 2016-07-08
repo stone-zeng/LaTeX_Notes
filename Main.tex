@@ -23,12 +23,18 @@
 %%交叉引用，超链接等
 \usepackage[hyperindex]{hyperref}
 	\hypersetup{
+		%  PDF 书签
 		bookmarksopen = true,
 		bookmarksopenlevel = 1,
 		bookmarksnumbered = true,
-%		pdftitle = {基于Heisenberg模型的skyrmion研究},
-%		pdfauthor = {杜治纬，孙晓晨，陶润恺，王金银，曾祥东},
+		%  PDF 标题作者
+		pdftitle = {LaTeX 排版笔记},
+		pdfauthor = {曾祥东},
+		%脚注
 %		hyperfootnotes = false,
+		%目录  只引用页码
+		linktoc = page,
+		%超链接颜色
 		colorlinks,
 		linkcolor = {red!60!black},
 		citecolor = {green!50!black},
@@ -131,6 +137,7 @@
 %%代码抄录
 %\usepackage{shortvrb}
 %	\MakeShortVerb |
+\usepackage{fancyvrb}
 
 %%大段代码排版
 \usepackage{listings}
@@ -150,10 +157,20 @@
 
 %%索引
 \usepackage{imakeidx}
-	\makeindex
+	\makeindex[
+		name = pkg,
+		title = {宏包索引}
+	]
+	\makeindex[
+		name = cmd,
+		title = {命令、选项索引}
+	]
 	\newcommand{\BH}[1]{\hyperpage{#1}}
-	\let \oldindex = \index
-	\renewcommand{\index}[1]{\oldindex{#1|BH}}
+%	\let \oldindex = \index
+%	\renewcommand{\index}[1]{\oldindex{#1|BH}}
+	\newcommand{\indexpkg}[1]{\index[pkg]{#1@\pkg{#1}|BH} }
+	\newcommand{\indexcmd}[1]{\index[cmd]{#1@\texttt{#1}|BH} }
+
 
 %TODO——环境
 %%问题 Question & Answer (这里的空行用来分段)
@@ -162,14 +179,17 @@
 \setcounter{question}{1}
 \renewcommand{\thequestion}{\arabic{question}}
 \newenvironment{myQA}[1]
-	{{\large \sffamily \noindent \thequestion.~#1}
+	{\addcontentsline{toc}{section}{\numberline {\thequestion}#1}
+		{\large \sffamily \noindent \thequestion.~#1}
 		
 	}
 	{
 		
 		\mbox{} \stepcounter{question}
 	}
+
 %% 代码框
+%可选参数表示 escape char, 默认为 `
 %FIXME：20160705 不可以使用 tab 键，见 plain.tex 第 18 行
 \newtcblisting{myCode}[1][`]
 	{
@@ -209,17 +229,31 @@
 %	}
 %	{}
 
+%%供索引使用的抄录环境
+\makeatletter
+\newenvironment{indexverb}{%
+	\def\verbatim@processline{\the\verbatim@line\ }%
+	\def\@verbatim{\the\every@verbatim
+		\obeylines
+		\let\do\@makeother \dospecials
+		\verbatim@font
+	}%
+	\def\endverbatim{\endgroup}%
+	\noindent
+	\verbatim}{\endverbatim}
+\makeatother
+
 %TODO——命令
-%宏包名
+%%宏包名
 \newcommand{\pkg}[1]{{\SourceSans #1}}
-%文件名
+%%文件名
 \newcommand{\filename}[1]{{\SourceSans #1}}
-%参考文献
+%%参考文献
 \newcommand{\myRef}[1]{\noindent
 	{\sc Reference} \raisebox{-0.25 ex}{\ding{43}}
 	\quad #1}
-%(La)TeX---From hologo
-%有修改
+%%(La)TeX
+%From hologo 宏包, 有修改
 %FIXME：20160708 与汉字连用时之前不要加空格
 \makeatletter
 \DeclareRobustCommand{\LaTeXTeX}{
@@ -261,8 +295,12 @@
 }
 
 \begin{document}
+	\frontmatter
 	\maketitle
 	
+	\tableofcontents
+	
+	\mainmatter
 	\chapter{文本}
 		\input{Chapters/Ch_Text}
 		
@@ -272,5 +310,7 @@
 	\chapter{字体}
 	\chapter{图形}
 	
-	\printindex
+	\backmatter
+	\printindex[pkg]
+	\printindex[cmd]
 \end{document}
