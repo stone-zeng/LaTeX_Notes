@@ -1,10 +1,14 @@
 \begin{myQA}{如何优雅地在科技文献中使用句点？}
 	在一般中文文章中，通常使用句号“{\CJKfamily{宋体}。}”。在 Unicode 中，
-	它的代码为 \verb|U+3002|。而在科技文献中，经常使用句点“．”（即全角
-	英文句号），它的 Unicode 代码为 \verb|U+FF0E|。
+	它的代码为 \verb|U+3002|。而在科技文献中，为了与一些下标区分，
+	经常使用句点“．”（即全角英文句号）
+	\footnote{在《标点符号用法：GB/T 15834—2011》 中，这一条被删去了。
+		是否采纳，您看着办。}
+	，它的 Unicode 代码为 \verb|U+FF0E|。
 	类似符号还有：半角英文句号达到 \verb|U+002E|“.”，
 	半角中文句号 \verb|U+FF61|
-	\footnote{本文所用字体并不包含该符号，可以改用微软雅黑等字体来显示。}
+	\footnote{本文所用字体并不包含该符号，可以脑补一下，
+		或者改用微软雅黑等字体来显示。}
 	等。这篇文章可以假装是科技文献，因此用了句点。
 	
 	我们有三种使用句点的方案。
@@ -29,8 +33,29 @@
 \end{myQA}
 
 %HACK：20160708 PDF 标签显示仍为句号，这里改用句点
-\begin{myQA}{各种连字符的区别．}
+\begin{myQA}{各种连字符、破折号的区别．}
+	在英文中主要有三种：hyphen、en dash 和 em dash。
 	
+	\begin{myItemize}
+		\item  hyphen，-，即连字符，Unicode 代码为 \verb|U+002D|
+			\footnote{严格来说，\verb|U+002D| 表示“连字符或减号”。
+				Unicode 还单独定义了一个连字符 \verb|U+2010|，
+				但是输入不太方便（\verb|\symbol{8208}|）。}
+			，用普通键盘就可以直接输入。
+		\item en dash，--，即字母“n”宽度的破折号，
+			Unicode 代码为 \verb|U+2013|。
+			在\LaTeXTeX 中，输入 \verb|--| （即两个 hyphen）可以通过预先
+			设定的连字功能得到 en dash。
+		\item em dash ，---，想必就是字母“m”宽度的破折号，
+			Unicode 代码为 \verb|U+2014|。
+			可以通过输入 \verb|---| （即三个 hyphen）来得到。
+	\end{myItemize}
+	
+	\blankline
+	
+	中文中的连字符也有三种：短横线“{\Songti -}”、一字线“—”和浪纹线“～”。短横线就是上文的 hyphen，而一字线则是 em dash\footnote{观察仔细的话，可以发现它们其实略有差异。这是由于上文的 hyphen 和 em dash 使用了英文字体，而这里的短横线和一字线使用了中文字体。}。剩下的浪纹线，Unicode 代码为 \verb|U+FF5E|。它的输入比较麻烦，毕竟\LaTeXTeX 不是原生支持 Unicode 的。较安全的方法是用 \verb|\symbol{65374}| \indexcmd{\backslash symbol}输入。如果使用 \hologo{XeTeX} 编译，直接在源代码中输入该符号也可以得到。
+	
+	中文中的破折号是“——”，实际上就是两个连在一起的 em dash。使用中文输入法，一般很容易输入。顺便一说，之前的一字线，可以由破折号删掉一半得到。这实际上是最简单的方法。
 \end{myQA}
 
 \begin{myQA}{这是三}

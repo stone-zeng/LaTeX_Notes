@@ -72,6 +72,7 @@
 		SlantedFont = texgyrecursor-italic
 	]{texgyrecursor-regular}
 	\newfontfamily{\SourceSans}{Source Sans Pro}
+	\newfontfamily{\Songti}{方正书宋_GBK}
 
 %%AMS 数学支持
 \usepackage{amsmath}
@@ -122,8 +123,19 @@
 	%需要调用 pifont 宏包
 	%衬线加圈阳文数字：\ding{172}~\ding{181} (1~10)
 	%无衬线加圈阳文数字：\ding{192}~\ding{201} (1~10)
-	%TODO：20160705 脚注不用上标
+	%xTODO：20160705 脚注不用上标
+	%HACK：20160709 见 http://tex.stackexchange.com/questions/19844/how-to-set-superscript-footnote-mark-in-the-text-body-but-normalsized-in-the-foo
 	\renewcommand{\thefootnote}{\ding{\numexpr191+\value{footnote} } }
+	\makeatletter
+	\newlength{\fnBreite}
+	\renewcommand{\@makefntext}[1]{%
+		\settowidth{\fnBreite}{\footnotesize\@thefnmark.i}
+		\protect\footnotesize\upshape%
+		\setlength{\@tempdima}{\columnwidth}\addtolength{\@tempdima}{-\fnBreite}%
+		\makebox[\fnBreite][l]{\@thefnmark\phantom{  }}%
+%		\parbox[t]{\@tempdima}{\everypar{\hspace*{1em}}\hspace*{-1em}\upshape#1}
+		}
+	\makeatother
 
 %%颜色
 \usepackage[svgnames]{xcolor}
@@ -138,12 +150,21 @@
 %\usepackage{shortvrb}
 %	\MakeShortVerb |
 \usepackage{fancyvrb}
+	\VerbatimFootnotes
 
 %%大段代码排版
 \usepackage{listings}
 
 %%彩色、加框环境
 \usepackage[listings]{tcolorbox}
+
+%%定制列表环境
+\usepackage{enumitem}
+	%定义带缩进的左对齐格式
+	%前一个参数 2.1 em 确定标签的位置
+	%后一个参数 1.2 em 确定标签与文字的距离
+	%HACK：20160709 可能与字体、字号、标签内容有关
+	\SetLabelAlign{leftalignwithindent}{\hspace{2.1 em} \makebox[1.2 em][l]{#1}}
 
 %%定理类环境
 %\usepackage[thmmarks, amsmath]{ntheorem}
@@ -188,7 +209,7 @@
 		\mbox{} \stepcounter{question}
 	}
 
-%% 代码框
+%%代码框
 %可选参数表示 escape char, 默认为 `
 %FIXME：20160705 不可以使用 tab 键，见 plain.tex 第 18 行
 \newtcblisting{myCode}[1][`]
@@ -230,18 +251,31 @@
 %	{}
 
 %%供索引使用的抄录环境
-\makeatletter
-\newenvironment{indexverb}{%
-	\def\verbatim@processline{\the\verbatim@line\ }%
-	\def\@verbatim{\the\every@verbatim
-		\obeylines
-		\let\do\@makeother \dospecials
-		\verbatim@font
-	}%
-	\def\endverbatim{\endgroup}%
-	\noindent
-	\verbatim}{\endverbatim}
-\makeatother
+%\makeatletter
+%\newenvironment{indexverb}{%
+%	\def\verbatim@processline{\the\verbatim@line\ }%
+%	\def\@verbatim{\the\every@verbatim
+%		\obeylines
+%		\let\do\@makeother \dospecials
+%		\verbatim@font
+%	}%
+%	\def\endverbatim{\endgroup}%
+%	\noindent
+%	\verbatim}{\endverbatim}
+%\makeatother
+
+%%定制列表（不编号）
+\newenvironment{myItemize}
+	{\begin{enumerate} [
+		label=\bullet, %标签样式：圆点
+		align = leftalignwithindent, %对齐（见上）
+		listparindent = 2 em, %条目段落缩进
+		leftmargin = 0 pt, %文字左边距
+		topsep = 0 pt,
+		itemsep = 0 pt,
+		parsep = 0 pt
+	]}
+	{\end{enumerate}}
 
 %TODO——命令
 %%宏包名
@@ -281,6 +315,8 @@
 	\TeX
 }
 \makeatother
+%%空行
+\newcommand{\blankline}{\mbox{}}
 
 
 %TODO——标题页

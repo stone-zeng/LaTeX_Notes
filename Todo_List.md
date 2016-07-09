@@ -10,8 +10,8 @@
 
 	http://tex.stackexchange.com/questions/11095/how-to-write-latex-with-parentheses-or-any-other-tex-related-logo
 
-3. 各种连字符的区别
+3. ok 各种连字符的区别
 
-4. 在脚注中使用 \verb
+4. 20160708 在脚注中使用 \verb
 
 	http://tex.stackexchange.com/questions/203/how-to-obtain-verbatim-text-in-a-footnote
