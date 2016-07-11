@@ -6,13 +6,13 @@
 %TODO——注意事项
 %CODE：20160629 每行 80 字符限制，中英文、数字之间加空格
 
-\documentclass{book}
+\documentclass[oneside]{book}
 
 %TODO——宏包
 %%页面尺寸
 \usepackage{geometry}
 	\geometry{
-		a4paper, twoside,
+		a4paper,
 		left = 2.54 cm, right = 2.54 cm, top = 3.18 cm, bottom = 3.18 cm,
 		headheight = 3 cm
 	}
@@ -193,6 +193,9 @@
 	\newcommand{\indexcmd}[1]{\index[cmd]{#1@\texttt{#1}|BH} }
 
 
+\usepackage[numbers]{natbib}%\raggedleft
+\bibliographystyle{mybst}
+
 %TODO——环境
 %%问题 Question & Answer (这里的空行用来分段)
 %使用计数器 question，全文统一编号
@@ -347,6 +350,7 @@
 	\chapter{图形}
 	
 	\backmatter
+	\bibliography{Reference}
 	\printindex[pkg]
 	\printindex[cmd]
 \end{document}
