@@ -63,6 +63,7 @@ ENTRY
     title
     type
     url
+    version
     volume
     year
   }
@@ -384,6 +385,14 @@ FUNCTION {format.eprint}
       if$
       "{" * swap$ * "}" *
     }
+  if$
+}
+FUNCTION {write.version}
+{
+  version
+  duplicate$ empty$
+    { pop$ }
+    { " (v{" swap$ * "})" * write$ newline$ }
   if$
 }
 FUNCTION {write.url}
@@ -1165,6 +1174,7 @@ FUNCTION {manual}
   format.date output
   format.doi output
   new.block
+  write.version
   format.note output
   format.eprint output
   fin.entry

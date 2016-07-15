@@ -21,9 +21,9 @@
 	
 	\emph{文青方案}：在导言区添加如下代码即可。此代码第一行将
 	“{\CJKfamily{宋体}。}”设置为活动符，并将其定义为命令，从而输出一个句点。
-\begin{myCode}[|]
-\catcode`\|{\CJKfamily{宋体}。}| = \active
-\newcommand{|{\CJKfamily{宋体}。}|}{．}
+\begin{myCode}
+\catcode`\(|{\CJKfamily{宋体}。}|) = \active
+\newcommand{(|{\CJKfamily{宋体}。}|)}{．}
 \end{myCode}
 	\indexcmd{\backslash catcode} \indexcmd{\backslash active}
 	

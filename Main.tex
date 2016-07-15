@@ -146,6 +146,12 @@
 %%TeX Logos
 \usepackage{hologo}
 
+%%物理、数学符号
+\usepackage{physics}
+
+%%单位
+\usepackage{siunitx}
+
 %%代码抄录
 %\usepackage{shortvrb}
 %	\MakeShortVerb |
@@ -157,6 +163,38 @@
 
 %%彩色、加框环境
 \usepackage[listings]{tcolorbox}
+	\tcbuselibrary{breakable}
+	\tcbset{
+		myBoxStyle/.style = {
+			%样式
+			colback = Cornsilk, %需要 xcolor 宏包 svgnames 选项
+			colframe = gray,
+			sharp corners,
+			boxrule = 1 pt,
+			%内容边距
+			left = 0 cm, right = 0 cm, top = -0.2 cm,
+%			各种框型 bottom 设置不同
+%			bottom = -0.2 cm,
+			%文字环绕
+%			各种框型设置不同
+%			before = {\\ \vspace{-2 ex} \\}, after = {\hspace{\fill}}
+			%分页
+			breakable,
+			toprule at break = 0 pt, bottomrule at break = 0 pt,
+			pad before break = 0.5 ex, pad after break = 3 ex,
+		},
+		myCodeStyle/.style = {
+			listing options = {
+				language = tex,
+				basicstyle = \ttfamily,
+				keywordstyle = \normalsize,
+				commentstyle = \color{gray},
+				numbers = left,
+				numberstyle = \itshape \footnotesize \color{gray},
+				escapeinside = {(|}{|)}
+			}
+		}
+	}
 
 %%定制列表环境
 \usepackage{enumitem}
@@ -195,6 +233,10 @@
 
 \usepackage[numbers]{natbib}%\raggedleft
 \bibliographystyle{mybst}
+%网址右对齐的实现
+%FIXME：20160712 \CTeX logo 在本文档字体下倾斜时重叠
+%\providecommand{\url}[1]{\texttt{#1}}
+%\providecommand{\urlprefix}{\hspace*{\fill}}
 
 %TODO——环境
 %%问题 Question & Answer (这里的空行用来分段)
@@ -203,8 +245,9 @@
 \setcounter{question}{1}
 \renewcommand{\thequestion}{\arabic{question}}
 \newenvironment{myQA}[1]
-	{\addcontentsline{toc}{section}{\numberline {\thequestion}#1}
+	{
 		{\large \sffamily \noindent \thequestion.~#1}
+		\addcontentsline{toc}{section}{\numberline {\thequestion}#1}
 		
 	}
 	{
@@ -213,45 +256,41 @@
 	}
 
 %%代码框
-%可选参数表示 escape char, 默认为 `
 %FIXME：20160705 不可以使用 tab 键，见 plain.tex 第 18 行
-\newtcblisting{myCode}[1][`]
+%FIXME：20160714 参数必须要加，否则第一行显示有问题
+\newtcblisting{myCode}
 	{
-		colback = AliceBlue, %需要 xcolor 宏包 svgnames 选项
-%		colframe=yellow!50!black,
-		sharp corners,
-		boxrule = 0 cm,
-		left = 0 cm, right = 0.5 cm, top = 0 cm, bottom = 0 cm,
-		capture = hbox, %自动调整边框大小
+		myBoxStyle,
+		bottom = -0.2 cm,
 		listing only,
-		listing options = {
-			language = tex,
-			basicstyle = \ttfamily,
-			keywordstyle = \normalsize,
-			numbers = left,
-			numberstyle = \itshape \footnotesize \color{gray},
-			escapechar = #1
-		}
+		myCodeStyle
 	}
 
-%\lstnewenvironment{myCode}[1][`]
-%	{
-%		\lstset{
-%			language = [LaTeX] TeX,
-%			basicstyle = \ttfamily,
-%			keywordstyle = \normalsize,
-%%			由于 80 字符限制，该选项可略去
-%%			breaklines = true,
-%			tabsize = 4,
-%%			numbers = left,
-%%			numberstyle = \itshape \footnotesize \color{gray},
-%%			numbersep = 10 pt,
-%%			该项无效
-%%			showstringspaces = true,
-%			escapechar = #1
-%		}
-%	}
-%	{}
+%%水平案例框（左代码，右效果）
+%参数 1：右边栏比例，默认 0.5
+%参数 2：效果的实现
+\newtcblisting{myExampleH}[2][0.5]
+	{
+		myBoxStyle,
+		bottom = -0.2 cm,
+		listing side comment,
+		righthand ratio = #1,
+		comment = {#2},
+		myCodeStyle
+	}
+
+%%垂直案例框（上代码，下效果）
+%参数 1：效果的实现
+\newtcblisting{myExampleV}[1]
+{
+	myBoxStyle,
+	middle = -0.1 cm,
+	breakable,
+	vfill before first = false,
+	listing and comment,
+	comment = {#1},
+	myCodeStyle
+}
 
 %%供索引使用的抄录环境
 %\makeatletter
@@ -284,7 +323,7 @@
 %%宏包名
 \newcommand{\pkg}[1]{{\SourceSans #1}}
 %%文件名
-\newcommand{\filename}[1]{{\SourceSans #1}}
+\newcommand{\filename}[1]{{\ttfamily #1}}
 %%参考文献
 \newcommand{\myRef}[1]{\noindent
 	{\sc Reference} \raisebox{-0.25 ex}{\ding{43}}
@@ -318,6 +357,8 @@
 	\TeX
 }
 \makeatother
+%%Tab 键空格
+\newcommand{\tab}{{ {} {} {} }}
 %%空行
 \newcommand{\blankline}{\mbox{}}
 
@@ -350,7 +391,10 @@
 	\chapter{图形}
 	
 	\backmatter
-	\bibliography{Reference}
+	{
+		\small
+		\bibliography{Reference}
+	}
 	\printindex[pkg]
 	\printindex[cmd]
 \end{document}

@@ -1,19 +1,66 @@
 \begin{myQA}{如何将实部、虚部用 Re 和 Im 表示？}
 	在\LaTeXTeX 中，命令 \verb|\Re| 和 \verb|\Im| 得到的是大写哥特体字母
-	$\Re$ 和 $\Im$。\indexcmd{\backslash Re} \indexcmd{\backslash Im}
+	$\Re$ \indexcmd{\backslash Re} 和 $\Im$ \indexcmd{\backslash Im}。
 	这是高德纳在 \filename{plain.tex} 中定义的。
 	
 	用下面的命令可以将它们重定义为更常用的格式 $\operatorname{Re}$
 	和 $\operatorname{Im}$：
-\begin{myCode}[|]
+\begin{myCode}
 \renewcommand{\Re}{\operatorname{Re}}
 \renewcommand{\Im}{\operatorname{Im}}
 \end{myCode}
 	
-	使用 \pkg{physics} \indexpkg{physics} 中的 \verb|\Re| 和 \verb|\Im| 也
+	使用 \pkg{physics} \indexpkg{physics} 宏包中的 \verb|\Re| 和 \verb|\Im| 也
 	可以达到同样的目的。
 	这个宏包还把原来的哥特体保存在了命令 \verb|\real| 和 \verb|\imaginary| 中。
 	\indexcmd{\backslash real} \indexcmd{\backslash imaginary}
 	
 	\myRef{115,116}
+\end{myQA}
+
+\begin{myQA}{怎样正确使用微分符号？}
+	按照传统，$\dd{x}$、$\dd{\theta}$ 等微元的前后均需要留出一个细空格（thin space）的距离。在 \LaTeX 中，细空格用命令 \verb|\,| 表示，默认情况下相当于 \SI{3}{mu} 的长度。这个 \si{mu} 表示数学单位，一个 \si{mu} 等于 $1/18$ 个 \si{em} 的长度。至于 \si{em}，假设你是知道的。
+	
+	下面是一个例子：
+\begin{myExampleV}
+{
+	\begin{alignat*}{2}
+		&\text{错误的：} \quad \iint f(x,y) \mathrm{d}x \mathrm{d}y
+		&\quad\quad& \iiint \mathrm{d}r \mathrm{d}\varphi \mathrm{d}\theta \\
+		&\text{正确的：} \quad \iint f(x,\,y) \, \mathrm{d}x \, \mathrm{d}y
+		&& \iiint \mathrm{d}r \, \mathrm{d}\varphi \, \mathrm{d}\theta
+	\end{alignat*}
+}
+\begin{alignat*}
+(|\tab|)&\text{错误的：} \quad
+(|\tab|)\iint f(x,y) \mathrm{d}x \mathrm{d}y
+(|\tab|)&\quad \quad&
+(|\tab|)\iiint \mathrm{d}r \mathrm{d}\varphi \mathrm{d}\theta \\
+(|\tab|)&\text{正确的：} \quad
+(|\tab|)\iint f(x,\,y) \, \mathrm{d}x \, \mathrm{d}y
+(|\tab|)&&
+(|\tab|)\iiint \mathrm{d}r \, \mathrm{d}\varphi \, \mathrm{d}\theta
+\end{alignat*}
+\end{myExampleV}
+但是“\verb|\,|”一多，写起来会很麻烦，而且容易错。惯例，可以新搞一个定义：
+\begin{myExampleH}[0.25]
+{
+	\newcommand{\dif}{\operatorname{d\!}}
+	\begin{gather*}
+		\iint f(x, \, y) \dif x \dif y \\
+		\frac{\dif f}{\dif x} = \sin x \\
+		\frac{\dif{^2 g}}{\dif{x^2}} = \cos x
+	\end{gather*}
+}
+%% ----------导言区---------- %%
+\DeclareMathOperator{\dif}{d \!}
+% 或者 \newcommand{\dif}{\operatorname{d \!}}
+%% ----------导言区---------- %%
+\begin{gather*}
+(|\tab|)\iint f(x, \, y) \dif x \dif y \\
+(|\tab|)\frac{\dif f}{\dif x} = \sin x \\
+(|\tab|)\frac{\dif{^2 g}}{\dif{x^2}} = \cos x
+\end{gather*}
+\end{myExampleH}
+未完待续……
 \end{myQA}

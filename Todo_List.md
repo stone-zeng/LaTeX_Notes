@@ -15,3 +15,15 @@
 4. 20160708 在脚注中使用 \verb
 
 	http://tex.stackexchange.com/questions/203/how-to-obtain-verbatim-text-in-a-footnote
+
+5. 20160715 问题 4： 如何将实部、虚部用 Re 和 Im 表示？
+
+	\DeclareMathOperator、
+	\operatorname、\mathop 的区别
+
+	与 unicode-math 宏包的冲突
+	（使用 \AtBeginDocument{})
+
+	http://tex.stackexchange.com/questions/84302/what-is-the-difference-of-mathop-operatorname-and-declaremathoperator
+
+	LaTeX 入门 p.244
