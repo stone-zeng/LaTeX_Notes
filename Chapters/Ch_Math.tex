@@ -19,7 +19,10 @@
 \end{myQA}
 
 \begin{myQA}{怎样正确使用微分符号？}
-	按照传统，$\dd{x}$、$\dd{\theta}$ 等微元的前后均需要留出一个细空格（thin space）的距离。在 \LaTeX 中，细空格用命令 \verb|\,| 表示，默认情况下相当于 \SI{3}{mu} 的长度。这个 \si{mu} 表示数学单位，一个 \si{mu} 等于 $1/18$ 个 \si{em} 的长度。至于 \si{em}，假设你是知道的。
+	按照传统，$\dd{x}$、$\dd{\theta}$ 等微元的前后均需要留出一个细空格
+	（thin space）的距离。在 \LaTeX 中，细空格用命令 \verb|\,| 表示，
+	默认情况下相当于 \SI{3}{mu} 的长度。这个 \si{mu} 表示数学单位，
+	一个 \si{mu} 等于 $1/18$ 个 \si{em} 的长度。至于 \si{em}，假设你是知道的。
 	
 	下面是一个例子：
 \begin{myExampleV}
@@ -31,7 +34,7 @@
 		&& \iiint \mathrm{d}r \, \mathrm{d}\varphi \, \mathrm{d}\theta
 	\end{alignat*}
 }
-\begin{alignat*}
+\begin{alignat*}{2}
 (|\tab|)&\text{错误的：} \quad
 (|\tab|)\iint f(x,y) \mathrm{d}x \mathrm{d}y
 (|\tab|)&\quad \quad&
@@ -42,10 +45,10 @@
 (|\tab|)\iiint \mathrm{d}r \, \mathrm{d}\varphi \, \mathrm{d}\theta
 \end{alignat*}
 \end{myExampleV}
-但是“\verb|\,|”一多，写起来会很麻烦，而且容易错。惯例，可以新搞一个定义：
+	但是“\verb|\,|”一多，写起来会很麻烦，而且容易错。惯例，可以新搞一个定义：
 \begin{myExampleH}[0.25]
 {
-	\newcommand{\dif}{\operatorname{d\!}}
+	\newcommand{\dif}{\operatorname{d \!}}
 	\begin{gather*}
 		\iint f(x, \, y) \dif x \dif y \\
 		\frac{\dif f}{\dif x} = \sin x \\
@@ -62,5 +65,78 @@
 (|\tab|)\frac{\dif{^2 g}}{\dif{x^2}} = \cos x
 \end{gather*}
 \end{myExampleH}
-未完待续……
+	这里有两种实现方法。如果用 \verb|\DeclareMathOperator| 的话，
+	要注意该声明的代码只能放在导言区。另外这个命令需要
+	\pkg{amsmath} \indexpkg{amsmath} 宏包的支持。
+	
+	这两种方法的原理是类似的。利用数学算子
+	（\verb|\DeclareMathOperator| 或 \verb|\operatorname|）
+	的命令保证了微分算子前面的间距，又用“\verb|\!|”去掉了它后面的间距。
+	同时，这个命令还自动把“$\mathrm{d}$”切换到了直立字体（\verb|\mathrm|）。
+	
+	如果微分算子“$\mathrm{d}$”后面跟的不是字母，那就不要偷懒，
+	该加的分组括号不能少，要不然 bug 会来得出人意料：
+\begin{myExampleV}
+{
+	\newcommand{\dif}{\operatorname{d \!}}
+	\begin{alignat*}{4}
+		&\text{不好的：} &\quad&
+			\dif (\cos x) &\quad \quad&
+			\dif \left(\cos x\right) &\quad \quad&
+			\dif \left(\frac{\ln x}{x}\right) \\
+		&\text{好的：} &&
+			\dif{(\cos x)} &&
+			\dif{\left(\cos x\right)} &&
+			\dif{\left(\frac{\ln x}{x}\right)}
+	\end{alignat*}
+}
+\newcommand{\dif}{\operatorname{d \!}}
+
+\begin{alignat*}{4}
+(|\tab|)&\text{不好的：} &\quad&
+(|\tab\tab|)\dif (\cos x) &\quad \quad&
+(|\tab\tab|)\dif \left(\cos x\right) &\quad \quad&
+(|\tab\tab|)\dif \left(\frac{\ln x}{x}\right) \\
+(|\tab|)&\text{好的：} &&
+(|\tab\tab|)\dif{(\cos x)} &&
+(|\tab\tab|)\dif{\left(\cos x\right)} &&
+(|\tab\tab|)\dif{\left(\frac{\ln x}{x}\right)}
+\end{alignat*}
+\end{myExampleV}
+	
+	普通括号跟在微分算子“$\mathrm{d}$”后面，间距太小，不好看。
+	但是如果是定界符括号，间距却又是正常的。所以还是老老实实加上“\verb|{}|”。
+	
+	\blankline
+	
+	根据 ISO 80000-2 的要求，微分算子应使用直立的“$\mathrm{d}$”。
+	但是，如果你就是任性，非要用斜体的“$d$”，也是可以的。
+	把之前代码中的 \verb|d| 用 \verb|\mathnormal{d}| 来代替，
+	就可以强制使用斜体（当然前提要求默认数学字体就是倾斜的）。
+	
+	\blankline
+	
+	\pkg{physics} \indexpkg{physics} 宏包中定义了 \verb|\differential| 命令
+	（简写为 \verb|\dd|），它涵盖了之前我们做的事情，又通过可选参数引入了上标。
+	对于圆括号，它还给出了自动处理的解决方案：
+\begin{myExampleH}
+{
+	\begin{equation*}
+		\dd x \quad \dd{\theta} \quad \dd[2]{x} \quad
+		\dd(\sin \theta) \quad \dd[2](\frac{\ln x}{x})
+	\end{equation*}
+}
+%% ----------导言区---------- %%
+\usepackage{physics}
+%% ----------导言区---------- %%
+\begin{equation*}
+(|\tab|)\dd x \quad
+(|\tab|)\dd{\theta} \quad
+(|\tab|)\dd[2]{x} \quad
+(|\tab|)\dd(\sin \theta) \quad
+(|\tab|)\dd[2](\frac{\ln x}{x})
+\end{equation*}
+\end{myExampleH}
+	
+	这个宏包提供的 \verb|\derivative| 命令（简写为 \verb|\dv|）
 \end{myQA}

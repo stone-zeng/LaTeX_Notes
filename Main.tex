@@ -69,7 +69,8 @@
 		Extension = .otf,
 		BoldFont = texgyrecursor-bold,
 		ItalicFont = texgyrecursor-italic.otf,
-		SlantedFont = texgyrecursor-italic
+		SlantedFont = texgyrecursor-italic,
+		Ligatures = NoCommon
 	]{texgyrecursor-regular}
 	\newfontfamily{\SourceSans}{Source Sans Pro}
 	\newfontfamily{\Songti}{方正书宋_GBK}
@@ -79,6 +80,10 @@
 
 %%Pi 符号
 \usepackage{pifont}
+	% 正确 √
+	\newcommand{\cmark}{\ding{51}}
+	% 错误 ×
+	\newcommand{\xmark}{\ding{55}}
 
 %%调用 Unicode OpenType 数学字体
 \usepackage{unicode-math}
