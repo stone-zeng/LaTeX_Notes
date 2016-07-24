@@ -4,10 +4,10 @@
 %%
 %% The original source files were:
 %%
-%% merlin.mbs  (with options: `ay,ed-au,nmlm,x3,m3,nmft,nmft-sc,nmfted,nmand-rm,yr-com,xmth,tit-it,atit-u,jwdpg,num-xser,add-pub,isbn,issn,doi,fin-bare,xedn,eprint,url,url-nl,em-it,nfss,')
+%% merlin.mbs  (with options: `ay,nm-init,ed-au,nmlm,x3,m3,nmft,nmft-sc,nmfted,nmand-rm,yr-com,xmth,tit-it,atit-u,jwdpg,num-xser,add-pub,isbn,issn,doi,fin-bare,xedn,eprint,url,url-nl,em-it,nfss,')
 %% ----------------------------------------
 %% ***  ***
-%% 
+%%
 %% Copyright 1994-2011 Patrick W Daly
  % ===============================================================
  % IMPORTANT NOTICE:
@@ -74,6 +74,7 @@ ENTRY
     title
     type
     url
+    version
     volume
     year
   }
@@ -196,6 +197,13 @@ FUNCTION {scaps}
 }
 FUNCTION {bib.name.font}
 { scaps }
+%% bib.netname.font: add 2016-07-24 by stone-zeng
+%FUNCTION {bib.netname.font}
+%{ duplicate$ empty$
+%    { pop$ "" }
+%    { "\netname{" swap$ * "}" * }
+%  if$
+%}
 FUNCTION {bib.fname.font}
 { bib.name.font }
 FUNCTION {tie.or.space.prefix}
@@ -377,10 +385,20 @@ FUNCTION {format.eprint}
     }
   if$
 }
+%% write.version: add 2016-07-24 by stone-zeng
+FUNCTION {write.version}
+{
+  version
+  duplicate$ empty$
+    { pop$ }
+    { " (v{" swap$ * "})" * write$ newline$ }
+  if$
+}
 FUNCTION {write.url}
 {
   url
   duplicate$ empty$
+%% modified 2016-07-24 by stone-zeng
     { pop$ }
     { "\newline\urlprefix\url{" swap$ * "}" * write$ newline$ }
   if$
@@ -401,7 +419,9 @@ FUNCTION {format.names}
   numnames 'namesleft :=
     { namesleft #0 > }
     { s nameptr
+    %% fullname: add 2016-07-24 by stone-zeng
       "{ff~}{vv~}{ll}{, jj}"
+%      "{f.~}{vv~}{ll}{, jj}"
       format.name$
       bib.name.font
       bibinfo bibinfo.check
@@ -447,6 +467,63 @@ FUNCTION {format.names}
   while$
   } if$
 }
+%% format.netnames: add 2016-07-24 by stone-zeng
+%FUNCTION {format.netnames}
+%{ 'bibinfo :=
+%  duplicate$ empty$ 'skip$ {
+%  's :=
+%  "" 't :=
+%  #1 'nameptr :=
+%  s num.names$ 'numnames :=
+%  numnames 'namesleft :=
+%    { namesleft #0 > }
+%    { s nameptr
+%      "{f.~}{vv~}{ll}{, jj}"
+%      format.name$
+%      bib.netname.font
+%      bibinfo bibinfo.check
+%      't :=
+%      nameptr #1 >
+%        {
+%          nameptr #3
+%          #1 + =
+%          numnames #3
+%          > and
+%            { "others" 't :=
+%              #1 'namesleft := }
+%            'skip$
+%          if$
+%          namesleft #1 >
+%            { ", " * t * }
+%            {
+%              s nameptr "{ll}" format.name$ duplicate$ "others" =
+%                { 't := }
+%                { pop$ }
+%              if$
+%              numnames #2 >
+%                { "," * }
+%                'skip$
+%              if$
+%              t "others" =
+%                {
+%                  " " * bbl.etal bib.netname.font *
+%                }
+%                {
+%                  bbl.and
+%                  space.word * t *
+%                }
+%              if$
+%            }
+%          if$
+%        }
+%        't
+%      if$
+%      nameptr #1 + 'nameptr :=
+%      namesleft #1 - 'namesleft :=
+%    }
+%  while$
+%  } if$
+%}
 FUNCTION {format.names.ed}
 {
   format.names
@@ -461,6 +538,10 @@ FUNCTION {format.key}
 FUNCTION {format.authors}
 { author "author" format.names
 }
+%% format.netauthors: add 2016-07-24 by stone-zeng
+%FUNCTION {format.netauthors}
+%{ author "author" format.netnames
+%}
 FUNCTION {get.bbl.editor}
 { editor num.names$ #1 > 'bbl.editors 'bbl.editor if$ }
 
@@ -1042,6 +1123,7 @@ FUNCTION {inproceedings}
   write.url
 }
 FUNCTION {conference} { inproceedings }
+%% manual: modified 2016-07-24 by stone-zeng
 FUNCTION {manual}
 { output.bibitem
   format.authors output
@@ -1055,6 +1137,7 @@ FUNCTION {manual}
   format.date "year" output.check
   format.doi output
   new.block
+  write.version
   format.note output
   format.eprint output
   fin.entry
@@ -1097,6 +1180,10 @@ FUNCTION {misc}
   fin.entry
   write.url
 }
+
+%% www: add 2016-07-24 by stone-zeng
+FUNCTION {www} { misc }
+
 FUNCTION {phdthesis}
 { output.bibitem
   format.authors "author" output.check
@@ -1142,6 +1229,9 @@ FUNCTION {proceedings}
   fin.entry
   write.url
 }
+
+%% standard: add 2016-07-24 by stone-zeng
+FUNCTION {standard} { book }
 
 FUNCTION {techreport}
 { output.bibitem
@@ -1289,7 +1379,9 @@ FUNCTION {sort.format.names}
   numnames 'namesleft :=
     { namesleft #0 > }
     { s nameptr
+    %% fullname: add 2016-07-24 by stone-zeng
       "{vv{ } }{ll{ }}{  ff{ }}{  jj{ }}"
+%      "{vv{ } }{ll{ }}{  f{ }}{  jj{ }}"
       format.name$ 't :=
       nameptr #1 >
         {
@@ -1473,7 +1565,9 @@ FUNCTION {begin.bib}
   write$ newline$
   "\providecommand{\url}[1]{\texttt{#1}}"
   write$ newline$
-  "\providecommand{\urlprefix}{URL }"
+%% \urlprefix: modified 2016-07-24 by stone-zeng
+  "\providecommand{\urlprefix}{}"
+%  "\providecommand{\urlprefix}{\hspace*{\fill}}"
   write$ newline$
   "\expandafter\ifx\csname urlstyle\endcsname\relax"
   write$ newline$
@@ -1482,6 +1576,8 @@ FUNCTION {begin.bib}
   "  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup \urlstyle{rm}\Url}\fi"
   write$ newline$
   "\providecommand{\eprint}[2][]{\url{#2}}"
+  write$ newline$
+  "\providecommand{\netname}[1]{\texttt{#1}}"
   write$ newline$
 }
 EXECUTE {begin.bib}

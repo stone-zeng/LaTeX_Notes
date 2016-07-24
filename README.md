@@ -34,7 +34,8 @@
 
 3. 引入 `siunitx` 宏包
 
-4. 大幅修改 `tcolorbox` 宏包命令，增加 `myExampleH` 和 `myExampleV` 环境（代码 + 效果），允许 box 分页，修改颜色、边框，修改逃逸字符
+4. 大幅修改 `tcolorbox` 宏包命令，增加 `myExampleH` 和 `myExampleV` 环境（代码 + 效果），
+允许 box 分页，修改颜色、边框，修改逃逸字符
 
 5. `\filename` 命令改为等宽字体
 
@@ -59,3 +60,37 @@
 2. 等宽字体禁用连字
 
 3. 定义对错符号
+
+## 2016/7/24
+
+1. 增加 `Ch_Font.tex`
+
+2. 增加脚本 `MAKE.bat` 和 `DELETE.bat`
+
+3. 增加问题 3：正文上下标
+
+4. 加问题 6： `eu1lmr.fd` 编译很慢
+
+5. 问题 5：微分符号 go on
+
+6. `ctex`：日期格式改用 英文旧式
+
+7. `xeCJK`：正文 方正书宋 `BoldFont` 改用 方正黑体，增加 SmallCapsFont 支持
+
+8. 标题页重新构建，改用繁体，增加图片
+
+9. `\myQA` 环境：增加 `\phantomsection` 命令，以防 `hyperref` 报错
+
+10. `\filename` 命令：重构
+
+11. 参考文献：增加 `mybst.new.bst` 和 `mybst.old.bst` 文件，方便管理；
+增加 `gbt-7714-2015-numerical.bst` 文件拷贝（供测试）
+
+12. 参考文献：改用 `mybst.new` 格式
+
+13. 引用：改为 作者名 + 数字
+
+14. `mybst.new`：增加 standard、www 类，网址左对齐（by 陶润恺），人名使用全称、SmallCapital，
+改用 author-year 格式（仍用数字引用）
+
+15. `\nocite{*}` 位置移动到 `\bibliography` 之前

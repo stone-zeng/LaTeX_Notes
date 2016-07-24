@@ -2,8 +2,9 @@
 	在一般中文文章中，通常使用句号“{\CJKfamily{宋体}。}”。在 Unicode 中，
 	它的代码为 \verb|U+3002|。而在科技文献中，为了与一些下标区分，
 	经常使用句点“．”（即全角英文句号）
-	\footnote{在《标点符号用法：GB/T 15834—2011》 中，这一条被删去了。
-		是否采纳，您看着办。}
+	\footnote{在新的《标点符号用法：GB/T 15834—2011》
+		\textsuperscript{\cite{GB/T15834-2011标点符号}} 中，
+		这一条被删去了。是否采纳，您看着办。}
 	，它的 Unicode 代码为 \verb|U+FF0E|。
 	类似符号还有：半角英文句号达到 \verb|U+002E|“.”，
 	半角中文句号 \verb|U+FF61|
@@ -29,8 +30,7 @@
 	
 	\emph{二青方案}：利用编辑器全文替换。缺点是这种方式并不优雅。
 	
-	\myRef{\cite{xeCJK}}
-	\nocite{*}
+	\myRef{\cite{PKG2016xeCJK}}
 \end{myQA}
 
 %HACK：20160708 PDF 标签显示仍为句号，这里改用句点
@@ -59,6 +59,43 @@
 	中文中的破折号是“——”，实际上就是两个连在一起的 em dash。使用中文输入法，一般很容易输入。顺便一说，之前的一字线，可以由破折号删掉一半得到。这实际上是最简单的方法。
 \end{myQA}
 
-\begin{myQA}{这是三}
-	vsDVD字符v的vecb案范围大气的
+\begin{myQA}{如何在正文中使用上下标？}
+	上下标的命令分别是 \verb|\textsuperscript|
+	和 \verb|\textsubscript|
+	\footnote{在早期版本的 \LaTeX 中，
+		使用 \verb|\textsubscript| 命令可能需要调用
+		\pkg{fixltx2e} \indexpkg{fixltx2e} 宏包。}
+	\indexcmd{\backslash textsuperscript}
+	\indexcmd{\backslash textsubscript}。注意要加分组括号，
+	否则这两个命令只会对其后的第一个字符起作用。
+	
+	利用行内公式，也可以实现上下标：
+\begin{myExampleV}
+{
+	\vspace{1 ex}
+	
+	这是第一个 $^\text{上标}$ 啦啦啦。
+	This is another $^\text{supersciprt}$ lalala.
+	
+	这是第三个$^\text{上标}$啦啦啦。
+	This is the fourth$^\text{supersciprt}$lalala.
+	
+	这是一个$_\text{下标}$。
+	This is a $_\text{subscript}$.
+}
+%% 不要忘记 \usepackage{amsmath}
+这是第一个(|\textvisiblespace|)$^\text{上标}$(|\textvisiblespace|)啦啦啦。
+This is another(|\textvisiblespace|)$^\text{supersciprt}$(|\textvisiblespace|)lalala.
+
+这是第三个$^\text{上标}$啦啦啦。
+This is the fourth$^\text{supersciprt}$lalala.
+
+这是一个$_\text{下标}$。
+This is a(|\textvisiblespace|)$_\text{subscript}$.
+\end{myExampleV}
+	在中文环境中，上下标前后的空格会自动加上，
+	无论是不是手动添加。有的时候这会造成麻烦。
+	而且这种手段略显猥琐，不推荐使用。
+	
+	\myRef{\citet{TSE2012superscript,TSE2010subscript}}
 \end{myQA}

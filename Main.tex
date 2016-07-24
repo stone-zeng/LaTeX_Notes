@@ -96,11 +96,14 @@
 
 %%中文文字处理
 \usepackage[UTF8, heading = true]{ctex}
+	\ctexset{today = old}
 	\pagestyle{empty}
+
 \usepackage{xeCJK}
 	\setCJKmainfont[
-		BoldFont = 方正书宋_GBK,
+		BoldFont = 方正黑体_GBK,
 		ItalicFont = 方正楷体_GBK,
+		SmallCapsFont = 方正书宋_GBK,
 		Mapping = fullwidth-stop
 	]{方正书宋_GBK}
 	\setCJKsansfont[
@@ -238,7 +241,10 @@
 
 
 \usepackage[numbers]{natbib}%\raggedleft
-\bibliographystyle{mybst}
+%\bibliographystyle{plainnat}
+%\bibliographystyle{alpha}
+%\bibliographystyle{gbt-7714-2015-numerical}
+\bibliographystyle{mybst.new}
 %网址右对齐的实现
 %FIXME：20160712 \CTeX logo 在本文档字体下倾斜时重叠
 %\providecommand{\url}[1]{\texttt{#1}}
@@ -251,8 +257,9 @@
 \setcounter{question}{1}
 \renewcommand{\thequestion}{\arabic{question}}
 \newenvironment{myQA}[1]
-	{
-		{\large \sffamily \noindent \thequestion.~#1}
+	{%
+		{\large \sffamily \noindent \thequestion.~#1}%
+		\phantomsection%
 		\addcontentsline{toc}{section}{\numberline {\thequestion}#1}
 		
 	}
@@ -327,9 +334,11 @@
 
 %TODO——命令
 %%宏包名
-\newcommand{\pkg}[1]{{\SourceSans #1}}
+\newcommand{\pkg}[1]{{\SourceSans#1}}
 %%文件名
-\newcommand{\filename}[1]{{\ttfamily #1}}
+\newcommand{\filename}[1]{\texttt{#1}}
+%%人名超链接
+\newcommand{\netname}[1]{\texttt{#1}}
 %%参考文献
 \newcommand{\myRef}[1]{\noindent
 	{\sc Reference} \raisebox{-0.25 ex}{\ding{43}}
@@ -370,19 +379,50 @@
 
 
 %TODO——标题页
-\title{
-	\vspace{-4 cm} \color{Sienna} \Huge \LaTeX 排版笔记
+\makeatletter
+	\newcommand{\HUGE}{\@setfontsize\Huge{60}{72}}
+\makeatother
+\newcommand{\myTitle}{
+	\begin{center}
+		\includegraphics{Figures/ctanlion}
+		
+		\vspace{2 cm}
+		
+		\color{Sienna} \HUGE
+		\LaTeX 排版筆記
+	\end{center}
+	
+	\vspace{1.5 cm}
+	
+	\begin{center}
+		\CJKfamily{楷体} \zihao{1}
+		{
+			\color{DarkRed}
+			曾祥東
+		}
+		
+		\vspace{1 cm}
+		
+		{
+			\color{Goldenrod} \addfontfeature{Numbers=OldStyle} \scshape
+			\today
+		}
+	\end{center}
 }
-\author{
-	\CJKfamily{楷体} \color{DarkRed} \Large 曾祥东
-}
-\date{
-	\CJKfamily{楷体} \color{Goldenrod} \Large \today
-}
+%\title{
+%	\vspace{-4 cm} \color{Sienna} \Huge \LaTeX 排版笔记
+%}
+%\author{
+%	\CJKfamily{楷体} \color{DarkRed} \Large 曾祥东
+%}
+%\date{
+%	\CJKfamily{楷体} \color{Goldenrod} \Large \today
+%}
 
 \begin{document}
 	\frontmatter
-	\maketitle
+%	\maketitle
+	\myTitle
 	
 	\tableofcontents
 	
@@ -394,12 +434,15 @@
 		\input{Chapters/Ch_Math}
 		
 	\chapter{字体}
+		\input{Chapters/Ch_Font}
+		
 	\chapter{图形}
 	\chapter{宏包}
 		\input{Chapters/Ch_Package}
 	
 	\backmatter
 	{
+		\nocite{*}
 		\small
 		\bibliography{Reference}
 	}

@@ -27,7 +27,7 @@ End of customized bst file
 %--------------------
 %STYLE OF CITATIONS:
    %: (def) Numerical
-% ay,%: Author-year
+   ay,%: Author-year
 % alph,%: Alpha style, Jon90 or JWB90
 % alph,alf-1,%: Alpha style, Jon90
 % alph,alf-f,%: Alpha style, Jones90
@@ -92,9 +92,9 @@ End of customized bst file
 % xintls,%: Sort on surname only
 %--------------------
 %AUTHOR NAMES:
-% ed-au,%: Full, surname last
+  ed-au,%: Full, surname last
 % nm-revf,%: Full, surname first
-  nm-init,ed-au,%: Initials + surname
+% nm-init,ed-au,%: Initials + surname
 % nm-rev,%: Surname + initials
 % nm-rv,%: Surname + dotless initials
 % nm-rvvc,%: Surname + comma + spaceless initials

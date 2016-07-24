@@ -1,0 +1,14 @@
+\begin{myQA}{编译到 \filename{eu1lmr.fd} 时很慢怎么办？}
+	据说，只有在 Windows 系统上用 \hologo{XeTeX} 编译时才会出现这种情况。
+	\hologo{XeTeX} 会调用系统字体，安装新字体后，需要刷新字体缓存，
+	以使 \hologo{XeTeX} 识别新安装的字体。
+	可以使用 \verb|fc-cache -f| 命令来重建字体缓存。
+	
+	关于 \verb|fc-cache| 更多用法，可以输入 \verb|fc-cache --help| 来查看。
+	
+	在 Mac 上，由于不使用 \filename{fontconfig} 机制，
+	因此不会出现该问题。
+	
+	\myRef{\cite{TSE2015eu1lmr}}
+%	http://tex.stackexchange.com/questions/57204/different-compilation-times-with-different-operating-systems
+\end{myQA}

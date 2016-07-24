@@ -15,7 +15,7 @@
 	这个宏包还把原来的哥特体保存在了命令 \verb|\real| 和 \verb|\imaginary| 中。
 	\indexcmd{\backslash real} \indexcmd{\backslash imaginary}
 	
-	\myRef{115,116}
+	\myRef{\cite{PKG2012physics}}
 \end{myQA}
 
 \begin{myQA}{怎样正确使用微分符号？}
@@ -138,5 +138,27 @@
 \end{equation*}
 \end{myExampleH}
 	
-	这个宏包提供的 \verb|\derivative| 命令（简写为 \verb|\dv|）
+	另外，这个宏包提供的 \verb|\derivative| 命令（简写为 \verb|\dv|）
+	可以类似的手法处理导数：
+\begin{myExampleH}
+{
+\begin{equation*}
+\dv{x} \quad \dv{R}{\theta} \quad \dv[n]{f}{x} \quad
+\dv{r}(\frac{\ln r}{r})
+\end{equation*}
+}
+%% ----------导言区---------- %%
+\usepackage{physics}
+%% ----------导言区---------- %%
+\begin{equation*}
+(|\tab|)\dv{x} \quad
+(|\tab|)\dv{R}{\theta} \quad
+(|\tab|)\dv[n]{f}{x} \quad
+(|\tab|)\dv{r}(\frac{\ln r}{r})
+\end{equation*}
+\end{myExampleH}
+	
+	@brian-ammon
+	
+	\myRef{\citet{PKG2012physics}}
 \end{myQA}
