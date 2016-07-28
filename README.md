@@ -94,3 +94,7 @@
 改用 author-year 格式（仍用数字引用）
 
 15. `\nocite{*}` 位置移动到 `\bibliography` 之前
+
+## 2016/7/29
+
+1. 添加 PDF 文件至 git
