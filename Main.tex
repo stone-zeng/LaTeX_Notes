@@ -151,6 +151,9 @@
 %%图形
 \usepackage{graphicx}
 
+%%导入 PDF
+\usepackage{pdfpages}
+
 %%TeX Logos
 \usepackage{hologo}
 
@@ -377,34 +380,33 @@
 %%空行
 \newcommand{\blankline}{\mbox{}}
 
-
+%TODO——封面
+\newcommand{\myCover}{\includepdf{Cover/Cover.pdf}}
 %TODO——标题页
 \makeatletter
-	\newcommand{\HUGE}{\@setfontsize\Huge{60}{72}}
+	\newcommand{\HUGE}{\@setfontsize\Huge{54}{64.8}}
+	\newcommand{\myLarge}{\@setfontsize\Huge{30}{36}}
 \makeatother
-\newcommand{\myTitle}{
+\newcommand{\myTitlePage}{
 	\begin{center}
-		\includegraphics{Figures/ctanlion}
-		
-		\vspace{2 cm}
-		
-		\color{Sienna} \HUGE
-		\LaTeX 排版筆記
-	\end{center}
-	
-	\vspace{1.5 cm}
-	
-	\begin{center}
-		\CJKfamily{楷体} \zihao{1}
+		\vspace*{2 cm}
 		{
-			\color{DarkRed}
-			曾祥東
+			\color{Sienna}
+			\HUGE
+			\LaTeX 排版手记
 		}
 		
-		\vspace{1 cm}
-		
+		\vspace{2 cm}
 		{
-			\color{Goldenrod} \addfontfeature{Numbers=OldStyle} \scshape
+			\color{DarkRed}
+			\CJKfamily{楷体} \Huge
+			曾祥东
+		}
+		
+		\vspace{12 cm}
+		{
+			\color{Goldenrod}
+			\Huge \scshape \addfontfeature{Numbers=OldStyle}
 			\today
 		}
 	\end{center}
@@ -421,8 +423,10 @@
 
 \begin{document}
 	\frontmatter
-%	\maketitle
-	\myTitle
+	
+	\myCover
+	
+	\myTitlePage
 	
 	\tableofcontents
 	
@@ -439,7 +443,7 @@
 	\chapter{图形}
 	\chapter{宏包}
 		\input{Chapters/Ch_Package}
-	
+		
 	\backmatter
 	{
 		\nocite{*}
