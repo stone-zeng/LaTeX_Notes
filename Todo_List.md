@@ -31,3 +31,14 @@
 6. 20160811 cmbright 为什么会出现锯齿
 
 	http://tex.stackexchange.com/questions/206735/math-font-pixellated-cmbright
+
+7. 20160814 直立希腊字母
+
+	upgreek, mathdesign, unicode-math 等宏包
+
+8. 20160827 cmbright 用 iwona
+
+	http://tex.stackexchange.com/questions/25293/replace-integral-sign-in-cmu-bright-with-iwona-while-keeping-proper-position-o
+
+	http://tex.stackexchange.com/questions/203364/cmbright-for-math-and-iwona-for-text
+	
