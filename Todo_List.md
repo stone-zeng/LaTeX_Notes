@@ -41,4 +41,23 @@
 	http://tex.stackexchange.com/questions/25293/replace-integral-sign-in-cmu-bright-with-iwona-while-keeping-proper-position-o
 
 	http://tex.stackexchange.com/questions/203364/cmbright-for-math-and-iwona-for-text
-	
+
+9. 20160828 小型大写字母
+
+10. 20160828 连字
+
+11. 20160828 公式加框
+
+	empheq 宏包
+
+12. 20160828 公式编号样式 x.x
+
+	\numberwithin{equation}{section}
+
+13. 20160828 公式字母上横线、弯号
+
+	\bar \overline \widetilde 等等
+
+14. 20160828 约化普朗克常数 hbar
+
+15. 20160828 带有特殊符号的标题

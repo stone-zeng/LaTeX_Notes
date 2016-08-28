@@ -12,9 +12,9 @@
 	\myRef{\citet{TSE2015eu1lmr}}
 \end{myQA}
 
-\begin{myQA}{cmbright 字体为什么有锯齿？}
-	因为
-\end{myQA}
+%\begin{myQA}{cmbright 字体为什么有锯齿？}
+%	因为
+%\end{myQA}
 
 \begin{myQA}{如何使用好看的数学字体？}
 	\TeX 和 \LaTeX 的默认字体是高老爷子制作的 Computer Modern，
@@ -34,11 +34,11 @@
 	好看是好看，但是多了也觉得乏味。下面推荐几个字体宏包，给诸位换换口味。
 	
 	首先是 CM Bright（图~\ref{Fig:cmbright}），这是一个能与
-	Computer Modern 相配的无衬线字体，包含在 \pkg{cmbright} 宏包中。
-	使用方法是在导言区加上 \verb|\usepackage{cmbright}|。
+	Computer Modern 相配的无衬线字体，
+	包含在 \pkg{cmbright} \indexpkg{cmbright}宏包中。
 	
-	CM Birght 有一个缺点：少了积分、求和等巨算符。默认采用
-	Computer Modern 显示，处女座自是不会满意。不过稍费工夫，
+	CM Birght 不包含积分、求和等巨算符，默认采用
+	Computer Modern 代替，处女座自是不会满意。不过稍费工夫，
 	也有办法改用其他字体（Iwona 之类）。
 	%TODO：20160827 需要引用其他问题
 	
@@ -49,21 +49,34 @@
 		\label{Fig:cmbright}
 	\end{figure}
 	
-	接下来是熟知的 Times 系列。
+	接下来是烂大街的 Times 系列（图~\ref{Fig:txfonts}）。
+	这里的例子是效果比较好的 \pkg{txfonts} \indexpkg{txfonts} 宏包，
+	也可以用 \pkg{mathptm} \indexpkg{mathptm} 或者
+	\pkg{mathptmx} \indexpkg{mathptmx} 宏包代替。
+	
+	请注意，这里所谓“Times”字体并非专指 Times New Roman。
+	这几个宏包用的是 URW Nimbus Roman No. 9 L，这是一个开源字体。
+	%TODO：20160828 newtxmath
 	
 	\begin{figure}[h]
 		\centering
 		\framebox{\includegraphics{Examples/txfonts}}
-		\caption{Times 字体示例}
+		\caption{Times 字体示例（\pkg{txfonts} 宏包）}
 		\label{Fig:txfonts}
 	\end{figure}
+	
+	然后是与 \pkg{txfonts} 系出同门的 \pkg{pxfonts}
+	\indexpkg{pxfonts} 宏包（图~\ref{Fig:pxfonts}），
+	它提供了完整的 Palatino 字体方案。实际用的字体是 URW Palladio L。
 	
 	\begin{figure}[h]
 		\centering
 		\framebox{\includegraphics{Examples/pxfonts}}
-		\caption{Palatino 字体示例}
+		\caption{Palatino 字体示例（\pkg{pxfonts} 宏包）}
 		\label{Fig:pxfonts}
 	\end{figure}
+	
+	以上几个字体包都是久经考验且方便易用的。用法是直接在导言区加上 \verb|\usepackage{<宏包名>}|。
 \end{myQA}
 
 \begin{myQA}{如何使用更好看的数学字体？}

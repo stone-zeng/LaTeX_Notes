@@ -126,3 +126,11 @@
 1. 增加 `txfonts`、`pxfonts` 字体示例
 
 2. 问题 8：数学字体 go on
+
+## 2016/8/28
+
+1. 增加 `mathptmx` 字体示例，试图增加 `newtxmath` 字体示例（需改进）
+
+2. 问题 8：数学字体 go on
+
+3. TODO list 增加内容

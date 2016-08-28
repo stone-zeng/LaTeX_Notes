@@ -4,13 +4,12 @@
 \usepackage{varwidth}
 
 \AtBeginDocument{\begin{preview}\begin{varwidth}{\linewidth}}
-\AtEndDocument{\end{varwidth}\end{preview}}
+		\AtEndDocument{\end{varwidth}\end{preview}}
 
 \pagestyle{empty}
 
-%\usepackage{amsmath}
-\usepackage{cmbright}
-%\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{mathptmx}
 
 \begin{document}
 	\textbf{Theorem 1 (Residue Theorem)}
@@ -18,8 +17,8 @@
 	singularities $a_1,\,a_2,\,\ldots,\,a_m$. If $\gamma$ is a closed
 	rectifiable curve in $G$ which does not pass through any of the
 	points $a_k$ and if $\gamma\approx 0$ in $G$ then
-	\begin{equation}
-		\frac{1}{2\pi i}\int_\gamma f
-		=\sum_{k=1}^m n(\gamma;\,a_k)% \text{Res}(f;\,a_k).
-	\end{equation}
+	\begin{equation*}
+	\frac{1}{2\pi i}\int_\gamma f
+	=\sum_{k=1}^m n(\gamma;\,a_k) \text{Res}(f;\,a_k).
+	\end{equation*}
 \end{document}
