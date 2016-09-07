@@ -2,9 +2,9 @@
 	据说，只有在 Windows 系统上用 \hologo{XeTeX} 编译时才会出现这种情况。
 	\hologo{XeTeX} 会调用系统字体，安装新字体后，需要刷新字体缓存，
 	以使 \hologo{XeTeX} 识别新安装的字体。
-	可以使用 \verb|fc-cache -f| 命令来重建字体缓存。
+	可以使用 \code|fc-cache -f| 命令来重建字体缓存。
 	
-	关于 \verb|fc-cache| 更多用法，可以输入 \verb|fc-cache --help| 来查看。
+	关于 \code|fc-cache| 更多用法，可以输入 \code|fc-cache --help| 来查看。
 	
 	在 Mac 上，由于不使用 \filename{fontconfig} 机制，
 	因此不会出现该问题。
@@ -76,7 +76,9 @@
 		\label{Fig:pxfonts}
 	\end{figure}
 	
-	以上几个字体包都是久经考验且方便易用的。用法是直接在导言区加上 \verb|\usepackage{<宏包名>}|。
+	以上几个字体包都是久经考验且方便易用的：
+	直接在导言区加上 \code|\usepackage{(|\optional{宏包名}|)}|
+	就可以获得理想的效果。
 \end{myQA}
 
 \begin{myQA}{如何使用更好看的数学字体？}

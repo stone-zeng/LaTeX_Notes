@@ -1,5 +1,5 @@
 \begin{myQA}{如何将实部、虚部用 Re 和 Im 表示？}
-	在\LaTeXTeX 中，命令 \verb|\Re| 和 \verb|\Im| 得到的是大写哥特体字母
+	在\LaTeXTeX 中，命令 \code|\Re| 和 \code|\Im| 得到的是大写哥特体字母
 	$\Re$ \indexcmd{\backslash Re} 和 $\Im$ \indexcmd{\backslash Im}。
 	这是高德纳在 \filename{plain.tex} 中定义的。
 	
@@ -10,9 +10,9 @@
 \renewcommand{\Im}{\operatorname{Im}}
 \end{myCode}
 	
-	使用 \pkg{physics} \indexpkg{physics} 宏包中的 \verb|\Re| 和 \verb|\Im| 也
+	使用 \pkg{physics} \indexpkg{physics} 宏包中的 \code|\Re| 和 \code|\Im| 也
 	可以达到同样的目的。
-	这个宏包还把原来的哥特体保存在了命令 \verb|\real| 和 \verb|\imaginary| 中。
+	这个宏包还把原来的哥特体保存在了命令 \code|\real| 和 \code|\imaginary| 中。
 	\indexcmd{\backslash real} \indexcmd{\backslash imaginary}
 	
 	\myRef{\citet{PKG2012physics}}
@@ -20,7 +20,7 @@
 
 \begin{myQA}{怎样正确使用微分符号？}
 	按照传统，$\dd{x}$、$\dd{\theta}$ 等微元的前后均需要留出一个细空格
-	（thin space）的距离。在 \LaTeX 中，细空格用命令 \verb|\,| 表示，
+	（thin space）的距离。在 \LaTeX 中，细空格用命令 \code|\,| 表示，
 	默认情况下相当于 \SI{3}{mu} 的长度。这个 \si{mu} 表示数学单位，
 	一个 \si{mu} 等于 $1/18$ 个 \si{em} 的长度。至于 \si{em}，假设你是知道的。
 	
@@ -45,7 +45,7 @@
 (|\tab|)\iiint \mathrm{d}r \, \mathrm{d}\varphi \, \mathrm{d}\theta
 \end{alignat*}
 \end{myExampleV}
-	但是“\verb|\,|”一多，写起来会很麻烦，而且容易错。惯例，可以新搞一个定义：
+	但是“\code|\,|”一多，写起来会很麻烦，而且容易错。惯例，可以新搞一个定义：
 \begin{myExampleH}[0.25]
 {
 	\newcommand{\dif}{\operatorname{d \!}}
@@ -65,14 +65,14 @@
 (|\tab|)\frac{\dif{^2 g}}{\dif{x^2}} = \cos x
 \end{gather*}
 \end{myExampleH}
-	这里有两种实现方法。如果用 \verb|\DeclareMathOperator| 的话，
+	这里有两种实现方法。如果用 \code|\DeclareMathOperator| 的话，
 	要注意该声明的代码只能放在导言区。另外这个命令需要
 	\pkg{amsmath} \indexpkg{amsmath} 宏包的支持。
 	
 	这两种方法的原理是类似的。利用数学算子
-	（\verb|\DeclareMathOperator| 或 \verb|\operatorname|）
-	的命令保证了微分算子前面的间距，又用“\verb|\!|”去掉了它后面的间距。
-	同时，这个命令还自动把“$\mathrm{d}$”切换到了直立字体（\verb|\mathrm|）。
+	（\code|\DeclareMathOperator| 或 \code|\operatorname|）
+	的命令保证了微分算子前面的间距，又用“\code|\!|”去掉了它后面的间距。
+	同时，这个命令还自动把“$\mathrm{d}$”切换到了直立字体（\code|\mathrm|）。
 	
 	如果微分算子“$\mathrm{d}$”后面跟的不是字母，那就不要偷懒，
 	该加的分组括号不能少，要不然 bug 会来得出人意料：
@@ -105,19 +105,19 @@
 \end{myExampleV}
 	
 	普通括号跟在微分算子“$\mathrm{d}$”后面，间距太小，不好看。
-	但是如果是定界符括号，间距却又是正常的。所以还是老老实实加上“\verb|{}|”。
+	但是如果是定界符括号，间距却又是正常的。所以还是老老实实加上“\code|{}|”。
 	
 	\blankline
 	
 	根据 ISO 80000-2 的要求，微分算子应使用直立的“$\mathrm{d}$”。
 	但是，如果你就是任性，非要用斜体的“$d$”，也是可以的。
-	把之前代码中的 \verb|d| 用 \verb|\mathnormal{d}| 来代替，
+	把之前代码中的 \code|d| 用 \code|\mathnormal{d}| 来代替，
 	就可以强制使用斜体（当然前提要求默认数学字体就是倾斜的）。
 	
 	\blankline
 	
-	\pkg{physics} \indexpkg{physics} 宏包中定义了 \verb|\differential| 命令
-	（简写为 \verb|\dd|），它涵盖了之前我们做的事情，又通过可选参数引入了上标。
+	\pkg{physics} \indexpkg{physics} 宏包中定义了 \code|\differential| 命令
+	（简写为 \code|\dd|），它涵盖了之前我们做的事情，又通过可选参数引入了上标。
 	对于圆括号，它还给出了自动处理的解决方案：
 \begin{myExampleH}
 {
@@ -138,7 +138,7 @@
 \end{equation*}
 \end{myExampleH}
 	
-	另外，这个宏包提供的 \verb|\derivative| 命令（简写为 \verb|\dv|）
+	另外，这个宏包提供的 \code|\derivative| 命令（简写为 \code|\dv|）
 	可以类似的手法处理导数：
 \begin{myExampleH}
 {

@@ -18,7 +18,7 @@
 
 1. 将 `Version_List.md` 重命名为 `README.md`
 
-2. 增加参考文献
+2. 增加参考文献列表
 
 ## 2016/7/12
 
@@ -134,3 +134,23 @@
 2. 问题 8：数学字体 go on
 
 3. TODO list 增加内容
+
+## 2016/9/8
+
+1. 增加 `Ch_Kernel.tex`
+
+2. 增加问题：newcommand 与 newcommand*
+
+3. 用 `\code` 命令取代 `\verb`
+
+4. 增加 `\optional` 命令
+
+5. UNICODE 代码改用 `\texttt` 而非 `\code`（原 `\verb`）
+
+6. 问题 “mathdesign 与 texnansi.enc” 增加引用
+
+7. 规范全文注释
+
+8. 增加参考文献列表
+
+9. TODO list 增加内容

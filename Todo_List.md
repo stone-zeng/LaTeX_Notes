@@ -61,3 +61,11 @@
 14. 20160828 约化普朗克常数 hbar
 
 15. 20160828 带有特殊符号的标题
+
+16. 20160907 为什么要用不必要的括号
+
+	http://tex.stackexchange.com/questions/1914/why-do-people-use-unnecessary-braces
+
+17. 20160908 hyperref PDF 书签 反斜杠不能用
+
+	http://tex.stackexchange.com/questions/113159/funny-but-unreadable-bookmarks-with-backslash-in-section
