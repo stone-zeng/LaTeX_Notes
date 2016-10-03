@@ -53,26 +53,12 @@
 % Courier: \usefont{T1}{pcr}{m}{n}
 %
 \usepackage[no-math]{fontspec}
-	\setmainfont[
-		Extension = .otf,
-		BoldFont = texgyrepagella-bold,
-		ItalicFont = texgyrepagella-italic.otf,
-		SlantedFont = texgyrepagella-italic.otf
-	]{texgyrepagella-regular}
-	\setsansfont[
-		Extension = .otf,
-		BoldFont = texgyreheros-bold,
-		ItalicFont = texgyreheros-italic.otf,
-		SlantedFont = texgyreheros-italic
-	]{texgyreheros-regular}
-	\setmonofont[
-		Extension = .otf,
-		BoldFont = texgyrecursor-bold,
-		ItalicFont = texgyrecursor-italic.otf,
-		SlantedFont = texgyrecursor-italic,
-		Ligatures = NoCommon
-	]{texgyrecursor-regular}
+	\setmainfont{TeX Gyre Pagella}
+	\setsansfont{TeX Gyre Heros}
+	\setmonofont[Ligatures = NoCommon]{TeX Gyre Cursor}
 	\newfontfamily{\SourceSans}{Source Sans Pro}
+	\newfontfamily{\LinLibertine}{Linux Libertine O}
+	\newfontfamily{\CourierNew}{Courier New}
 	\newfontfamily{\Songti}{方正书宋_GBK}
 
 %% AMS 数学支持
@@ -91,13 +77,14 @@
 		math-style = ISO,
 		bold-style = ISO
 	]{texgyrepagella-math.otf}
+%	]{Libertinus Math}
 % 加粗使用 \symbf{}
 % 直立希腊字母：\uppi 等
 
 %% 中文文字处理
 \usepackage[UTF8, heading = true]{ctex}
 	\ctexset{today = old}
-	\pagestyle{empty}
+	\pagestyle{plain}
 
 \usepackage{xeCJK}
 	\setCJKmainfont[
@@ -111,11 +98,6 @@
 		ItalicFont = 方正黑体_GBK,
 		Mapping = fullwidth-stop
 	]{方正黑体_GBK}
-%	\setCJKsansfont[
-%		BoldFont = 思源黑体 CN Regular,
-%		ItalicFont = 思源黑体 CN Regular,
-%		Mapping = fullwidth-stop
-%	]{思源黑体 CN Regular}
 	\setCJKmonofont[
 		BoldFont = 方正仿宋_GBK,
 		ItalicFont = 方正楷体_GBK,
@@ -205,7 +187,7 @@
 				numbers = left,
 				numberstyle = \itshape \footnotesize \color{gray},
 				breaklines = true,
-				escapeinside = {(|}{|)}
+				escapeinside = {*|}{|*}
 			}
 		}
 	}
@@ -241,8 +223,10 @@
 	\newcommand{\BH}[1]{\hyperpage{#1}}
 %	\let \oldindex = \index
 %	\renewcommand{\index}[1]{\oldindex{#1|BH}}
-	\newcommand{\indexpkg}[1]{\index[pkg]{#1@\pkg{#1}|BH} }
-	\newcommand{\indexcmd}[1]{\index[cmd]{#1@\texttt{#1}|BH} }
+	\newcommand{\indexpkg}[1]
+		{\index[pkg]{#1@\pkg{#1}|BH}\ignorespaces}
+	\newcommand{\indexcmd}[1]
+		{\index[cmd]{#1@\texttt{#1}|BH}\ignorespaces}
 
 %% 参考文献
 \usepackage[numbers]{natbib}%\raggedleft
@@ -345,9 +329,11 @@
 %% 人名超链接
 \newcommand{\netname}[1]{\texttt{#1}}
 %% 参考文献
-\newcommand{\myRef}[1]{\noindent
-	{\sc Reference} \raisebox{-0.25 ex}{\ding{43}}
+\newcommand{\myRef}[1]{\noindent%
+	{\sc Reference} \raisebox{-0.25 ex}{\ding{43}}%
 	\quad #1}
+%% 方括号上标文献引用
+\newcommand{\sscite}[1]{\textsuperscript{\cite{#1}}}
 %% (La)TeX
 % From hologo 宏包, 有修改
 %FIXME：20160708 与汉字连用时之前不要加空格
@@ -389,19 +375,23 @@
 	basicstyle = \ttfamily,%
 	keywordstyle = \normalsize,%
 	commentstyle = \color{gray},%
-	escapeinside = {(|}{|)}%
+	escapeinside = {*|}{|*}%
 ]}
+%% UNICODE 代码
 %TODO：20160908 UNICODE 代码
 %% Tab 键空格
 \newcommand{\tab}{{ {} {} {} }}
+%% 可见空格
+\newcommand{\vispace}{\textvisiblespace}
 %% 命令可选项
 \newcommand{\optional}[1]{\textlangle\textit{#1}\textrangle}
 %% 空行
 \newcommand{\blankline}{\mbox{}}
 
-%TODO——封面
+%---------------封面---------------%
 \newcommand{\myCover}{\includepdf{Cover/Cover.pdf}}
-%TODO——标题页
+
+%---------------标题页---------------%
 \makeatletter
 	\newcommand{\HUGE}{\@setfontsize\Huge{54}{64.8}}
 	\newcommand{\myLarge}{\@setfontsize\Huge{30}{36}}

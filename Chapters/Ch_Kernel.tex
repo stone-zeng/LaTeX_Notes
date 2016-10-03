@@ -1,14 +1,15 @@
 \begin{myQA}{\texttt{\textbackslash newcommand} 和
-		\texttt{\textbackslash newcommand*} 有什么区别？}
-	\indexcmd{\backslash newcommand} \indexcmd{\backslash newcommand*}
-	%
-	首先来介绍一点人生经验。
-	
-	……
-	
-	用 \code|\newcommand| 来定义命令时，可以使用“长参数”，
-	即参数中可以带空行或者 \code|\par| 命令；
-	而用 \code|\newcommand*| 来定义命令时，则不可以使用“长参数”。
-	
-	\myRef{\citet{TSE2012newcommand}}
+	\texttt{\textbackslash newcommand*} 有什么区别？}
+\indexcmd{\backslash newcommand} \indexcmd{\backslash newcommand*}
+%
+首先来介绍一点人生经验。
+
+……
+
+用 \code|\newcommand| 来定义命令时，可以使用“长参数”，
+即参数中可以带空行或者 \code|\par| 命令；
+而用 \code!\newcommand*! 来定义命令时，则不可以使用“长参数”。
+%HACK:20161002 这里用 \code! ! 是为了防止与逃脱字符 *| 冲突
+
+\myRef{\citet{TSE2012newcommand}}
 \end{myQA}

@@ -1,13 +1,14 @@
 \begin{myQA}{使用 \pkg{mathdesign} 宏包时
-		提示 \filename{texnansi.enc} 无法找到或读取，应该怎么办？}
-	\indexpkg{mathdesign}
-	典型的编译日志如下（使用 \hologo{pdfLaTeX} 编译）：
+	提示 \filename{texnansi.enc} 无法找到或读取，应该怎么办？}
+\indexpkg{mathdesign}
+典型的编译日志如下（使用 \hologo{pdfLaTeX} 编译）：
 \begin{myCode}
-!pdfTeX error: pdflatex (file texnansi.enc): cannot open encoding file for reading
+!pdfTeX error: pdflatex (file texnansi.enc): cannot open encoding
+file for reading
 ==> Fatal error occurred, no output PDF file produced!
 \end{myCode}
-	解决方法是安装 \pkg{ly1} \indexpkg{ly1} 宏包，
-	它会提供 \filename{texnansi.enc} 字体编码文件。
-	
-	\myRef{\citet{TSE2014mathdesign}}
+解决方法是安装 \pkg{ly1} \indexpkg{ly1} 宏包，
+它会提供 \filename{texnansi.enc} 字体编码文件。
+
+\myRef{\citet{TSE2014mathdesign}}
 \end{myQA}

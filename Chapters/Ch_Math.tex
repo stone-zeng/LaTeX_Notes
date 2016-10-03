@@ -1,162 +1,154 @@
 \begin{myQA}{如何将实部、虚部用 Re 和 Im 表示？}
-	在\LaTeXTeX 中，命令 \code|\Re| 和 \code|\Im| 得到的是大写哥特体字母
-	$\Re$ \indexcmd{\backslash Re} 和 $\Im$ \indexcmd{\backslash Im}。
-	这是高德纳在 \filename{plain.tex} 中定义的。
-	
-	用下面的命令可以将它们重定义为更常用的格式 $\operatorname{Re}$
-	和 $\operatorname{Im}$：
+在\LaTeXTeX 中，命令 \code|\Re| 和 \code|\Im| 得到的是大写哥特体字母
+$\Re$ \indexcmd{\backslash Re} 和 $\Im$ \indexcmd{\backslash Im}。
+这是高德纳在 \filename{plain.tex} 中定义的。
+
+用下面的命令可以将它们重定义为更常用的格式 $\operatorname{Re}$
+和 $\operatorname{Im}$：
 \begin{myCode}
 \renewcommand{\Re}{\operatorname{Re}}
 \renewcommand{\Im}{\operatorname{Im}}
 \end{myCode}
-	
-	使用 \pkg{physics} \indexpkg{physics} 宏包中的 \code|\Re| 和 \code|\Im| 也
-	可以达到同样的目的。
-	这个宏包还把原来的哥特体保存在了命令 \code|\real| 和 \code|\imaginary| 中。
-	\indexcmd{\backslash real} \indexcmd{\backslash imaginary}
-	
-	\myRef{\citet{PKG2012physics}}
+
+使用 \pkg{physics} \indexpkg{physics} 宏包中的 \code|\Re| 和
+\code|\Im| 也可以达到同样的目的。
+这个宏包还把原来的哥特体保存在了命令 \code|\real| 和 \code|\imaginary| 中。
+\indexcmd{\backslash real} \indexcmd{\backslash imaginary}
+
+\myRef{\citet{PKG2012physics}}
 \end{myQA}
 
 \begin{myQA}{怎样正确使用微分符号？}
-	按照传统，$\dd{x}$、$\dd{\theta}$ 等微元的前后均需要留出一个细空格
-	（thin space）的距离。在 \LaTeX 中，细空格用命令 \code|\,| 表示，
-	默认情况下相当于 \SI{3}{mu} 的长度。这个 \si{mu} 表示数学单位，
-	一个 \si{mu} 等于 $1/18$ 个 \si{em} 的长度。至于 \si{em}，假设你是知道的。
-	
-	下面是一个例子：
+按照传统，$\dd{x}$、$\dd{\theta}$ 等微元的前后均需要留出一个细空格
+（thin space）的距离。在 \LaTeX 中，细空格用命令 \code|\,| 表示，
+默认情况下相当于 \SI{3}{mu} 的长度。这个 \si{mu} 表示数学单位，
+一个 \si{mu} 等于 $1/18$ 个 \si{em} 的长度。至于 \si{em}，假设你是知道的。
+
+下面是一个例子：
 \begin{myExampleV}
-{
-	\begin{alignat*}{2}
-		&\text{错误的：} \quad \iint f(x,y) \mathrm{d}x \mathrm{d}y
-		&\quad\quad& \iiint \mathrm{d}r \mathrm{d}\varphi \mathrm{d}\theta \\
-		&\text{正确的：} \quad \iint f(x,\,y) \, \mathrm{d}x \, \mathrm{d}y
-		&& \iiint \mathrm{d}r \, \mathrm{d}\varphi \, \mathrm{d}\theta
-	\end{alignat*}
-}
+{\begin{alignat*}{2}
+	&\text{错误的：} \quad \iint f(x,y) \mathrm{d}x \mathrm{d}y
+	&\quad\quad& \iiint \mathrm{d}r \mathrm{d}\varphi
+		\mathrm{d}\theta \\
+	&\text{正确的：} \quad \iint f(x,\,y) \, \mathrm{d}x \, \mathrm{d}y
+	&& \iiint \mathrm{d}r \, \mathrm{d}\varphi \, \mathrm{d}\theta
+\end{alignat*}}
 \begin{alignat*}{2}
-(|\tab|)&\text{错误的：} \quad
-(|\tab|)\iint f(x,y) \mathrm{d}x \mathrm{d}y
-(|\tab|)&\quad \quad&
-(|\tab|)\iiint \mathrm{d}r \mathrm{d}\varphi \mathrm{d}\theta \\
-(|\tab|)&\text{正确的：} \quad
-(|\tab|)\iint f(x,\,y) \, \mathrm{d}x \, \mathrm{d}y
-(|\tab|)&&
-(|\tab|)\iiint \mathrm{d}r \, \mathrm{d}\varphi \, \mathrm{d}\theta
+    &\text{错误的：} \quad
+        \iint f(x,y) \mathrm{d}x \mathrm{d}y &\quad \quad&
+        \iiint \mathrm{d}r \mathrm{d}\varphi \mathrm{d}\theta \\
+    &\text{正确的：} \quad
+        \iint f(x,\,y) \, \mathrm{d}x \, \mathrm{d}y &&
+        \iiint \mathrm{d}r \, \mathrm{d}\varphi \, \mathrm{d}\theta
 \end{alignat*}
 \end{myExampleV}
-	但是“\code|\,|”一多，写起来会很麻烦，而且容易错。惯例，可以新搞一个定义：
+但是“\code|\,|”一多，写起来很累，而且容易错。惯例，可以新搞一个定义：
 \begin{myExampleH}[0.25]
-{
-	\newcommand{\dif}{\operatorname{d \!}}
-	\begin{gather*}
-		\iint f(x, \, y) \dif x \dif y \\
-		\frac{\dif f}{\dif x} = \sin x \\
-		\frac{\dif{^2 g}}{\dif{x^2}} = \cos x
-	\end{gather*}
-}
+{\newcommand{\dif}{\operatorname{d \!}}
+\begin{gather*}
+	\iint f(x, \, y) \dif x \dif y \\
+	\frac{\dif f}{\dif x} = \sin x \\
+	\frac{\dif{^2 g}}{\dif{x^2}} = \cos x
+\end{gather*}}
 %% ----------导言区---------- %%
 \DeclareMathOperator{\dif}{d \!}
 % 或者 \newcommand{\dif}{\operatorname{d \!}}
 %% ----------导言区---------- %%
+
 \begin{gather*}
-(|\tab|)\iint f(x, \, y) \dif x \dif y \\
-(|\tab|)\frac{\dif f}{\dif x} = \sin x \\
-(|\tab|)\frac{\dif{^2 g}}{\dif{x^2}} = \cos x
+    \iint f(x, \, y) \dif x \dif y \\
+    \frac{\dif f}{\dif x} = \sin x \\
+    \frac{\dif{^2 g}}{\dif{x^2}} = \cos x
 \end{gather*}
 \end{myExampleH}
-	这里有两种实现方法。如果用 \code|\DeclareMathOperator| 的话，
-	要注意该声明的代码只能放在导言区。另外这个命令需要
-	\pkg{amsmath} \indexpkg{amsmath} 宏包的支持。
-	
-	这两种方法的原理是类似的。利用数学算子
-	（\code|\DeclareMathOperator| 或 \code|\operatorname|）
-	的命令保证了微分算子前面的间距，又用“\code|\!|”去掉了它后面的间距。
-	同时，这个命令还自动把“$\mathrm{d}$”切换到了直立字体（\code|\mathrm|）。
-	
-	如果微分算子“$\mathrm{d}$”后面跟的不是字母，那就不要偷懒，
-	该加的分组括号不能少，要不然 bug 会来得出人意料：
+这里给出了两种实现方法。如果用 \code|\DeclareMathOperator| 的话，
+要注意该声明的代码只能放在导言区。另外这个命令需要
+\pkg{amsmath} \indexpkg{amsmath} 宏包的支持。
+
+这两种方法的原理是类似的。利用数学算子
+（\code|\DeclareMathOperator| 或 \code|\operatorname|）
+命令保证了微分算子前面的间距，又用“\code|\!|”去掉了它后面的间距。
+同时，这个命令还自动把“$\mathrm{d}$”切换到了直立字体（\code|\mathrm|）。
+
+如果微分算子“$\mathrm{d}$”后面跟的不是字母，那就不要偷懒，
+该加的分组括号不能少，要不然 bug 会来得出人意料：
 \begin{myExampleV}
-{
-	\newcommand{\dif}{\operatorname{d \!}}
-	\begin{alignat*}{4}
-		&\text{不好的：} &\quad&
-			\dif (\cos x) &\quad \quad&
-			\dif \left(\cos x\right) &\quad \quad&
-			\dif \left(\frac{\ln x}{x}\right) \\
-		&\text{好的：} &&
-			\dif{(\cos x)} &&
-			\dif{\left(\cos x\right)} &&
-			\dif{\left(\frac{\ln x}{x}\right)}
-	\end{alignat*}
-}
+{\newcommand{\dif}{\operatorname{d \!}}
+\begin{alignat*}{4}
+	&\text{不好的：} &\quad&
+		\dif (\cos x) &\quad \quad&
+		\dif \left(\cos x\right) &\quad \quad&
+		\dif \left(\frac{\ln x}{x}\right) \\
+	&\text{好的：} &&
+		\dif{(\cos x)} &&
+		\dif{\left(\cos x\right)} &&
+		\dif{\left(\frac{\ln x}{x}\right)}
+\end{alignat*}}
 \newcommand{\dif}{\operatorname{d \!}}
 
 \begin{alignat*}{4}
-(|\tab|)&\text{不好的：} &\quad&
-(|\tab\tab|)\dif (\cos x) &\quad \quad&
-(|\tab\tab|)\dif \left(\cos x\right) &\quad \quad&
-(|\tab\tab|)\dif \left(\frac{\ln x}{x}\right) \\
-(|\tab|)&\text{好的：} &&
-(|\tab\tab|)\dif{(\cos x)} &&
-(|\tab\tab|)\dif{\left(\cos x\right)} &&
-(|\tab\tab|)\dif{\left(\frac{\ln x}{x}\right)}
+    &\text{不好的：} &\quad&
+        \dif (\cos x) &\quad \quad&
+        \dif \left(\cos x\right) &\quad \quad&
+        \dif \left(\frac{\ln x}{x}\right) \\
+    &\text{好的：} &&
+        \dif{(\cos x)} &&
+        \dif{\left(\cos x\right)} &&
+        \dif{\left(\frac{\ln x}{x}\right)}
 \end{alignat*}
 \end{myExampleV}
-	
-	普通括号跟在微分算子“$\mathrm{d}$”后面，间距太小，不好看。
-	但是如果是定界符括号，间距却又是正常的。所以还是老老实实加上“\code|{}|”。
-	
-	\blankline
-	
-	根据 ISO 80000-2 的要求，微分算子应使用直立的“$\mathrm{d}$”。
-	但是，如果你就是任性，非要用斜体的“$d$”，也是可以的。
-	把之前代码中的 \code|d| 用 \code|\mathnormal{d}| 来代替，
-	就可以强制使用斜体（当然前提要求默认数学字体就是倾斜的）。
-	
-	\blankline
-	
-	\pkg{physics} \indexpkg{physics} 宏包中定义了 \code|\differential| 命令
-	（简写为 \code|\dd|），它涵盖了之前我们做的事情，又通过可选参数引入了上标。
-	对于圆括号，它还给出了自动处理的解决方案：
+
+普通括号跟在微分算子“$\mathrm{d}$”后面，间距太小，不好看。
+但是如果是定界符括号，间距却又是正常的。所以还是老老实实加上“\code|{}|”。
+
+\blankline
+
+根据 ISO 80000-2 的要求，微分算子应使用直立的“$\mathrm{d}$”。
+但是，如果你就是任性，非要用斜体的“$d$”，也是可以的。
+把之前代码中的 \code|d| 用 \code|\mathnormal{d}| 来代替，
+就可以强制使用斜体（当然前提要求默认数学字体就是倾斜的）。
+
+\blankline
+
+\pkg{physics} \indexpkg{physics} 宏包中定义了 \code|\differential| 命令
+（简写为 \code|\dd|），它涵盖了之前我们做的事情，又通过可选参数引入了上标。
+对于圆括号，它还给出了自动处理的解决方案：
 \begin{myExampleH}
-{
-	\begin{equation*}
-		\dd x \quad \dd{\theta} \quad \dd[2]{x} \quad
-		\dd(\sin \theta) \quad \dd[2](\frac{\ln x}{x})
-	\end{equation*}
-}
+{\begin{equation*}
+	\dd x \quad \dd{\theta} \quad \dd[2]{x} \quad
+	\dd(\sin \theta) \quad \dd[2](\frac{\ln x}{x})
+\end{equation*}}
 %% ----------导言区---------- %%
 \usepackage{physics}
 %% ----------导言区---------- %%
+
 \begin{equation*}
-(|\tab|)\dd x \quad
-(|\tab|)\dd{\theta} \quad
-(|\tab|)\dd[2]{x} \quad
-(|\tab|)\dd(\sin \theta) \quad
-(|\tab|)\dd[2](\frac{\ln x}{x})
+    \dd x \quad
+    \dd{\theta} \quad
+    \dd[2]{x} \quad
+    \dd(\sin \theta) \quad
+    \dd[2](\frac{\ln x}{x})
 \end{equation*}
 \end{myExampleH}
-	
-	另外，这个宏包提供的 \code|\derivative| 命令（简写为 \code|\dv|）
-	可以类似的手法处理导数：
+
+另外，这个宏包提供的 \code|\derivative| 命令（简写为 \code|\dv|）
+可以类似的手法处理导数：
 \begin{myExampleH}
-{
-\begin{equation*}
-\dv{x} \quad \dv{R}{\theta} \quad \dv[n]{f}{x} \quad
-\dv{r}(\frac{\ln r}{r})
-\end{equation*}
-}
+{\begin{equation*}
+	\dv{x} \quad \dv{R}{\theta} \quad \dv[n]{f}{x} \quad
+	\dv{r}(\frac{\ln r}{r})
+\end{equation*}}
 %% ----------导言区---------- %%
 \usepackage{physics}
 %% ----------导言区---------- %%
+
 \begin{equation*}
-(|\tab|)\dv{x} \quad
-(|\tab|)\dv{R}{\theta} \quad
-(|\tab|)\dv[n]{f}{x} \quad
-(|\tab|)\dv{r}(\frac{\ln r}{r})
+    \dv{x} \quad
+    \dv{R}{\theta} \quad
+    \dv[n]{f}{x} \quad
+    \dv{r}(\frac{\ln r}{r})
 \end{equation*}
 \end{myExampleH}
-	
-	\myRef{\citet{PKG2012physics}}
+
+\myRef{\citet{PKG2012physics}}
 \end{myQA}

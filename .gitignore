@@ -19,6 +19,10 @@
 # these rules might exclude image files for figures etc.
 *.ps
 *.eps
+*.svg
+*.ai
+*.jpg
+*.png
 
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl
@@ -186,10 +190,7 @@ TSWLatexianTemp*
 
 ## OTHERS:
 *.txt
-*.svg
 *.dat
-*.jpg
-*.png
 *.csv
 *.xls
 *.xlsx

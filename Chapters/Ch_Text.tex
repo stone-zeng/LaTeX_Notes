@@ -1,112 +1,135 @@
 \begin{myQA}{如何优雅地在科技文献中使用句点？}
-	在一般中文文章中，通常使用句号“{\CJKfamily{宋体}。}”。在 Unicode 中，
-	它的代码为 \texttt{U+3002}。而在科技文献中，为了与一些下标区分，
-	经常使用句点“．”（即全角英文句号）
-	\footnote{在新的《标点符号用法：GB/T 15834—2011》
-		\textsuperscript{\cite{GB/T15834-2011标点符号}} 中，
-		这一条被删去了。是否采纳，您看着办。}，
-	它的 Unicode 代码为 \texttt{U+FF0E}。
-	类似符号还有：半角英文句号达到 \texttt{U+002E}“.”，
-	半角中文句号 \texttt{U+FF61}
-	\footnote{本文所用字体并不包含该符号，可以脑补一下，
-		或者改用微软雅黑等字体来显示。}
-	等。这篇文章可以假装是科技文献，因此用了句点。
-	
-	我们有三种使用句点的方案。
-	
-	\emph{普青方案}：使用 \pkg{xeCJK} \indexpkg{xeCJK} 宏包的朋友，
-	在调用字体时使用
-	\code|Mapping = fullwidth-stop| \indexcmd{Mapping} 选项，
-	就可以将正常句号转换成句点。选项 \code|Mapping = full-stop|
-	的作用恰恰相反。
-	
-	\emph{文青方案}：在导言区添加如下代码即可。此代码第一行将
-	“{\CJKfamily{宋体}。}”设置为活动符，并将其定义为命令，从而输出一个句点。
+在一般中文文章中，通常使用句号“{\CJKfamily{宋体}。}”。在 Unicode 中，
+它的代码为 \texttt{U+3002}。而在科技文献中，为了与一些下标区分，
+经常使用句点“．”（即全角英文句号）
+\footnote{在新的《标点符号用法：GB/T 15834—2011》
+	\sscite{GB/T15834-2011标点符号} 
+	中，这一条被删去了。是否采纳，您看着办。}，
+它的 Unicode 代码为 \texttt{U+FF0E}。
+类似符号还有：半角英文句号达到 \texttt{U+002E}“.”，
+半角中文句号 \texttt{U+FF61}
+\footnote{本文所用字体并不包含该符号，可以脑补一下，
+	或者改用微软雅黑等字体来显示。}%
+等。这篇文章可以假装是科技文献，因此用了句点。
+
+我们有三种使用句点的方案。
+
+\emph{普青方案}：使用 \pkg{xeCJK} \indexpkg{xeCJK} 宏包的朋友，
+在调用字体时使用
+\code|Mapping = fullwidth-stop| \indexcmd{Mapping} 选项，
+就可以将正常句号转换成句点。选项 \code|Mapping = full-stop|
+的作用恰恰相反。
+
+\emph{文青方案}：在导言区添加如下代码即可。此代码第一行将
+“{\CJKfamily{宋体}。}”设置为活动符，并将其定义为命令，从而输出一个句点。
 \begin{myCode}
-\catcode`\(|{\CJKfamily{宋体}。}|) = \active
-\newcommand{(|{\CJKfamily{宋体}。}|)}{．}
+\catcode`\*|{\CJKfamily{宋体}。}|* = \active
+\newcommand{*|{\CJKfamily{宋体}。}|*}{．}
 \end{myCode}
-	\indexcmd{\backslash catcode} \indexcmd{\backslash active}
-	
-	\emph{二青方案}：利用编辑器全文替换。缺点是这种方式并不优雅。
-	
-	\myRef{\citet{PKG2016xeCJK}}
+\indexcmd{\backslash catcode} \indexcmd{\backslash active}
+
+\emph{二青方案}：利用编辑器全文替换。缺点是这种方式并不优雅。
+
+\myRef{\citet{PKG2016xeCJK}}
 \end{myQA}
 
 %HACK：20160708 PDF 标签显示仍为句号，这里改用句点
 \begin{myQA}{各种连字符、破折号的区别．}
-	在英文中主要有三种：hyphen、en dash 和 em dash。
-	
-	\begin{myItemize}
-		\item  hyphen，-，即连字符，Unicode 代码为 \texttt{U+002D}
-			\footnote{严格来说，\texttt{U+002D} 表示“连字符或减号”。
-				Unicode 还单独定义了一个连字符 \texttt{U+2010}，
-				但是输入不太方便（\code|\symbol{8208}|）。}，
-			用普通键盘就可以直接输入。
-		\item en dash，--，即字母“n”宽度的破折号，
-			Unicode 代码为 \texttt{U+2013}。
-			在\LaTeXTeX 中，输入 \code|--| （即两个 hyphen）可以通过预先
-			设定的连字功能得到 en dash。
-		\item em dash ，---，想必就是字母“m”宽度的破折号，
-			Unicode 代码为 \texttt{U+2014}。
-			可以通过输入 \code|---| （即三个 hyphen）来得到。
-	\end{myItemize}
-	
-	\blankline
-	
-	中文中的连字符也有三种：短横线“{\Songti -}”、一字线“—”和浪纹线“～”。
-	短横线就是上文的 hyphen，而一字线则是 em dash
-	\footnote{观察仔细的话，可以发现它们其实略有差异。
-		这是由于上文的 hyphen 和 em dash 使用了英文字体，
-		而这里的短横线和一字线使用了中文字体。}。
-	剩下的浪纹线，Unicode 代码为 \texttt{U+FF5E}。它的输入比较麻烦，
-	因为\LaTeXTeX 不是原生支持 Unicode 的。较安全的方法是用
-	\code|\symbol{65374}| \indexcmd{\backslash symbol}输入。
-	如果使用 \hologo{XeTeX} 编译，直接在源代码中输入该符号也可以得到。
-	
-	中文中的破折号是“——”，实际上就是两个连在一起的 em dash。
-	使用中文输入法，一般很容易输入。顺便一说，之前的一字线，
-	可以由破折号删掉一半得到。这实际上是最简单的方法。
-	%TODO：20160828 适用范围、参考文献
+在英文中主要有三种：hyphen、en dash 和 em dash。
+
+\begin{myItemize}
+\item  hyphen，-，即连字符，Unicode 代码为 \texttt{U+002D}
+\footnote{严格来说，\texttt{U+002D} 表示“连字符或减号”。
+	Unicode 还单独定义了一个连字符 \texttt{U+2010}，
+	但是输入不太方便（\code|\symbol{8208}|）。}，
+用普通键盘就可以直接输入。
+
+\item en dash，--，即字母“n”宽度的破折号，
+Unicode 代码为 \texttt{U+2013}。
+在\LaTeXTeX 中，输入 \code|--| （即两个 hyphen）可以通过预先
+设定的连字功能得到 en dash。
+
+\item em dash ，---，想必就是字母“m”宽度的破折号，
+Unicode 代码为 \texttt{U+2014}。
+可以通过输入 \code|---| （即三个 hyphen）来得到。
+\end{myItemize}
+
+\blankline
+
+中文中的连字符也有三种：短横线“{\Songti -}”、一字线“—”和浪纹线“～”。
+短横线就是上文的 hyphen，而一字线则是 em dash
+\footnote{观察仔细的话，可以发现它们其实略有差异。
+	这是由于上文的 hyphen 和 em dash 使用了英文字体，
+	而这里的短横线和一字线使用了中文字体。}。
+剩下的浪纹线，Unicode 代码为 \texttt{U+FF5E}。它的输入比较麻烦，
+因为\LaTeXTeX 不是原生支持 Unicode 的。较安全的方法是用
+\code|\symbol{65374}| \indexcmd{\backslash symbol}输入。
+如果使用 \hologo{XeTeX} 编译，直接在源代码中输入该符号也可以得到。
+
+中文中的破折号是“——”，实际上就是两个连在一起的 em dash。
+使用中文输入法，一般很容易输入。顺便一说，之前的一字线，
+可以由破折号删掉一半得到。这实际上是最简单的方法。
+%TODO：20160828 适用范围、参考文献
 \end{myQA}
 
 \begin{myQA}{如何在正文中使用上下标？}
-	上下标的命令分别是 \code|\textsuperscript|
-	和 \code|\textsubscript|
-	\footnote{在早期版本的 \LaTeX 中，
-		使用 \code|\textsubscript| 命令可能需要调用
-		\pkg{fixltx2e} \indexpkg{fixltx2e} 宏包。}
-	\indexcmd{\backslash textsuperscript}
-	\indexcmd{\backslash textsubscript}。注意要加分组括号，
-	否则这两个命令只会对其后的第一个字符起作用。
-	
-	利用行内公式，也可以实现上下标：
+上下标的命令分别是 \code|\textsuperscript|
+和 \code|\textsubscript|
+\footnote{在早期版本的 \LaTeX 中，
+	使用 \code|\textsubscript| 命令可能需要调用
+	\pkg{fixltx2e} \indexpkg{fixltx2e} 宏包。}。
+\indexcmd{\backslash textsuperscript}
+\indexcmd{\backslash textsubscript}
+注意要加分组括号，否则这两个命令只会对其后的第一个字符起作用。
+
+利用行内公式，也可以实现上下标（请注意空格）：
 \begin{myExampleV}
-{
-	\vspace{1 ex}
-	
-	这是第一个 $^\text{上标}$ 啦啦啦。
-	This is another $^\text{supersciprt}$ lalala.
-	
-	这是第三个$^\text{上标}$啦啦啦。
-	This is the fourth$^\text{supersciprt}$lalala.
-	
-	这是一个$_\text{下标}$。
-	This is a $_\text{subscript}$.
-}
-%% 不要忘记 \usepackage{amsmath}
-这是第一个(|\textvisiblespace|)$^\text{上标}$(|\textvisiblespace|)啦啦啦。
-This is another(|\textvisiblespace|)$^\text{supersciprt}$(|\textvisiblespace|)lalala.
+{\vspace{1 ex}
+
+这是第一个 $^\text{上标}$ 啦啦啦。
+This is another $^\text{supersciprt}$ lalala.
 
 这是第三个$^\text{上标}$啦啦啦。
 This is the fourth$^\text{supersciprt}$lalala.
 
 这是一个$_\text{下标}$。
-This is a(|\textvisiblespace|)$_\text{subscript}$.
+This is a $_\text{subscript}$.}
+%% 需要使用 `amsmath' 宏包
+这是第一个*|\vispace|*$^\text{上标}$*|\vispace|*啦啦啦。
+This is another*|\vispace|*$^\text{supersciprt}$*|\vispace|*lalala.
+
+这是第三个$^\text{上标}$啦啦啦。
+This is the fourth$^\text{supersciprt}$lalala.
+
+这是一个$_\text{下标}$。
+This is a*|\vispace|*$_\text{subscript}$.
 \end{myExampleV}
-	在中文环境中，上下标前后的空格会自动加上，
-	无论是不是手动添加。有的时候这会造成麻烦。
-	而且这种手段略显猥琐，不推荐使用。
-	
-	\myRef{\citet{TSE2012superscript,TSE2010subscript}}
+在中文环境中，上下标前后的空格会自动加上，
+无论是不是手动添加。有的时候这会造成麻烦。
+而且这种手段略显猥琐，不推荐使用。
+
+\myRef{\citet{TSE2012superscript,TSE2010subscript}}
+\end{myQA}
+
+\begin{myQA}{如何输入“naïve”这样的单词？}
+在 \hologo{XeTeX} 这样的排版引擎下，只需将文件编码设置为 UTF-8，
+就可以直接输入：
+\begin{myExampleV}
+{\vspace{1 ex}
+
+naïve \quad café \quad Schrödinger \quad Ürümqi(Wūlǔmùqí)}
+naïve \quad café \quad Schrödinger \quad Ürümqi(Wūlǔmùqí)
+\end{myExampleV}
+除了拉丁语拓展，实际上在大多数字母都可以用这种方法直接输入
+（前提是有合适的字体支持）：
+\begin{myExampleV}
+{\vspace{1 ex}
+
+{\LinLibertine Пу́тин \quad	 Σωκράτης \quad אברהם}}
+%% 需要使用 `fontspec' 宏包
+\setmainfont{Linux Libertine O}
+*|{\CourierNew Пу́тин}|*     \quad  % 普京（俄语）
+*|{\CourierNew Σωκράτης}|*  \quad  % 苏格拉底（希腊语）
+*|{\CourierNew אברהם}|*            % 亚伯拉罕（希伯来语）
+\end{myExampleV}
 \end{myQA}
