@@ -122,10 +122,12 @@
 	\renewcommand{\@makefntext}[1]{%
 		\settowidth{\fnBreite}{\footnotesize\@thefnmark.i}
 		\protect\footnotesize\upshape%
-		\setlength{\@tempdima}{\columnwidth}\addtolength{\@tempdima}{-\fnBreite}%
+		\setlength{\@tempdima}{\columnwidth}%
+		\addtolength{\@tempdima}{-\fnBreite}%
 		\makebox[\fnBreite][l]{\@thefnmark\phantom{  }}%
-%		\parbox[t]{\@tempdima}{\everypar{\hspace*{1em}}\hspace*{-1em}\upshape#1}
-		}
+%		\parbox[t]{\@tempdima}%
+%		{\everypar{\hspace*{1em}}\hspace*{-1em}\upshape#1}
+	}
 	\makeatother
 
 %% 颜色
@@ -214,11 +216,13 @@
 \usepackage{imakeidx}
 	\makeindex[
 		name = pkg,
-		title = {宏包索引}
+		title = {宏包索引},
+		options = {-s MyIndexStyle.ist}
 	]
 	\makeindex[
 		name = cmd,
-		title = {命令、选项索引}
+		title = {命令、选项索引},
+		options = {-s MyIndexStyle.ist}
 	]
 	\newcommand{\BH}[1]{\hyperpage{#1}}
 %	\let \oldindex = \index
@@ -240,7 +244,7 @@
 %\providecommand{\urlprefix}{\hspace*{\fill}}
 
 %TODO——环境
-%% 问题 Question & Answer (这里的空行用来分段)
+%% 问题 Question & Answer (空行用来分段)
 % 使用计数器 question，全文统一编号
 \newcounter{question}
 \setcounter{question}{1}
@@ -457,7 +461,7 @@
 		\input{Chapters/Ch_Kernel}
 	\backmatter
 	{
-		\nocite{*}
+%		\nocite{*}
 		\small
 		\bibliography{Reference}
 	}

@@ -152,3 +152,59 @@ $\Re$ \indexcmd{\backslash Re} 和 $\Im$ \indexcmd{\backslash Im}。
 
 \myRef{\citet{PKG2012physics}}
 \end{myQA}
+
+\begin{myQA}{“中标”如何输入？}
+众所周知，上标和下标可以分别用 \code|^| 和 \code|_| 输入。
+而中标，其实就是一个垂直居中的环境，当然字号也需要适当减小。
+
+{
+\newcommand{\midscript}[1]{\vcenter{\hbox{$\scriptstyle #1$}}}
+
+\begin{myExampleH}[0.25]
+{\begin{gather*}
+	\Gamma\midscript{(123)} \\
+	\Gamma^{\Omega\midscript{(123)}}
+\end{gather*}}
+\newcommand{\midscript}[1]{
+    \vcenter{\hbox{$\scriptstyle #1$}}}
+
+\begin{gather*}
+    \Gamma\midscript{(123)} \\
+    \Gamma^{\Omega\midscript{(123)}}
+\end{gather*}
+\end{myExampleH}
+}
+
+此法过于简陋，不能自动识别所处环境。很明显，
+第二行写在上标里的中标就大了。解决办法是利用
+\code|\mathchoice| \indexcmd{\backslash mathchoice}
+选择合适的尺寸：
+
+{
+\newcommand\midscript[1]{\mathchoice
+    {\vcenter{\hbox{$\scriptstyle #1$}}}
+    {\vcenter{\hbox{$\scriptstyle #1$}}}
+    {\vcenter{\hbox{$\scriptscriptstyle #1$}}}
+    {\vcenter{\hbox{$\scriptscriptstyle #1$}}}}
+
+\begin{myExampleH}[0.25]
+{\begin{gather*}
+	\Gamma\midscript{(123)} \\
+	\Gamma^{\Omega\midscript{(123)}}
+\end{gather*}}
+\newcommand\midscript[1]{\mathchoice
+    {\vcenter{\hbox{$\scriptstyle #1$}}}
+    {\vcenter{\hbox{$\scriptstyle #1$}}}
+    {\vcenter{\hbox{$\scriptscriptstyle #1$}}}
+    {\vcenter{\hbox{$\scriptscriptstyle #1$}}}
+}
+
+\begin{gather*}
+    \Gamma\midscript{(123)} \\
+    \Gamma^{\Omega\midscript{(123)}}
+\end{gather*}
+\end{myExampleH}
+}
+
+\myRef{\citet{TSE2015middlescript}}
+\end{myQA}
